@@ -8,7 +8,9 @@ module.exports = {
   extraBabelCompileNodeModules: [],
 
   // 项目导出的共享资源
-  exposes: {},
+  exposes: {
+    './Input': 'src/packages/input/index.js',
+  },
   shared: {},
 
   // 开启BrowserRouter模式

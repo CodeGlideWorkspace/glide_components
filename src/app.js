@@ -1,8 +1,6 @@
 /**
  * 本文件用于注册全局回调勾子，如果你不需要这些勾子函数，可以删除本文件
  */
-import Theme from '@/packages/theme'
-
 import './app.css'
 
 /**
