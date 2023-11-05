@@ -1,6 +1,7 @@
 /**
  * 本文件用于注册全局回调勾子，如果你不需要这些勾子函数，可以删除本文件
  */
+import Theme from '@/packages/theme'
 
 import './app.css'
 
@@ -38,7 +39,11 @@ export function remotes() {
 export function render(oldRender) {
   // 注册渲染回调函数，在需要渲染时，一定要调用这个render
   // 否则应用无法渲染出来
-  oldRender()
+  oldRender((children) => {
+    return (
+      <Theme>{children}</Theme>
+    )
+  })
 }
 
 /**
