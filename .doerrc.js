@@ -9,7 +9,8 @@ module.exports = {
 
   // 项目导出的共享资源
   exposes: {
-    './Input': 'src/packages/input/index.js',
+    './Input': './src/packages/input/index.js',
+    './Form': './src/packages/form/index.js',
   },
   shared: {},
 

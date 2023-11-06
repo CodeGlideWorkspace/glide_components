@@ -37,11 +37,7 @@ export function remotes() {
 export function render(oldRender) {
   // 注册渲染回调函数，在需要渲染时，一定要调用这个render
   // 否则应用无法渲染出来
-  oldRender((children) => {
-    return (
-      <Theme>{children}</Theme>
-    )
-  })
+  oldRender()
 }
 
 /**
