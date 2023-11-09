@@ -1,4 +1,6 @@
 module.exports = {
+  mode: 'library',
+  libraryName: 'cg',
   // 设置别名
   alias: {
     '@': 'src',
@@ -9,8 +11,8 @@ module.exports = {
 
   // 项目导出的共享资源
   exposes: {
-    './Input': './src/packages/input/index.js',
-    './Form': './src/packages/form/index.js',
+    // './style': './src/packages/style/index.js',
+    // './Form': './src/packages/form/index.js',
   },
   shared: {},
 
