@@ -1,0 +1,16 @@
+:root {
+  /* 品牌主色 */
+  --cg-primary-color: #26997b;
+
+  /* 成功主色 */
+  --cg-success-color: #b0e64c;
+
+  /* 错误主色 */
+  --cg-error-color: #dc3b5d;
+
+  /* 警告主色 */
+  --cg-warning-color: #ffba18;
+
+  /* 圆角尺寸 */
+  --cg-border-radius: 2px;
+}
