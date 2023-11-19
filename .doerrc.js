@@ -12,8 +12,13 @@ module.exports = {
   // 项目导出的共享资源
   exposes: {
     './style': './src/packages/style/index.js',
+    './utils': './src/packages/utils/index.js',
     './ConfigProvider': './src/packages/configProvider/index.js',
     './Card': './src/packages/card/index.js',
+    './Form': './src/packages/form/index.js',
+    './Input': './src/packages/input/index.js',
+    './Collapse': './src/packages/collapse/index.js',
+    './Remote': './src/packages/remote/index.js',
   },
   shared: {},
 

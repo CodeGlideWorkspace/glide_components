@@ -3,7 +3,7 @@
  */
 import React from 'react'
 import '@/packages/style'
-import ConfigProvider from '@/packages/configProvider'
+import { ConfigProvider } from '@/packages/configProvider'
 
 import './app.css'
 
