@@ -19,6 +19,8 @@ module.exports = {
     './Input': './src/packages/input/index.js',
     './Collapse': './src/packages/collapse/index.js',
     './Remote': './src/packages/remote/index.js',
+    './Example': './src/packages/example/index.js',
+    './StageProvider': './src/packages/stage/index.js',
   },
   shared: {},
 
