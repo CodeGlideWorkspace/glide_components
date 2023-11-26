@@ -19,6 +19,10 @@ module.exports = {
     './FormBase': './src/packages/formBase/index.js',
     './Collapse': './src/packages/collapse/index.js',
     './Remote': './src/packages/remote/index.js',
+
+    './Dnd': './src/packages/dnd/index.js',
+    './Col': './src/packages/col/index.js',
+    './Row': './src/packages/row/index.js',
   },
   shared: {},
 
