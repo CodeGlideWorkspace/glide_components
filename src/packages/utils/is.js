@@ -35,6 +35,10 @@ export function isUndefined(data) {
   return check(data, '[object Undefined]')
 }
 
+export function isFunction(data) {
+  return check(data, '[object Function]')
+}
+
 export function isValuable(data) {
   return !isUndefined(data) && !isNull(data) && !isNaN(data) && data !== ''
 }

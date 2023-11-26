@@ -2,7 +2,7 @@ import { lazy, useState, useEffect } from 'react'
 
 import { loadRemoteModule } from 'doer'
 
-function useRemote({ path }) {
+function useRemote({ path = '' }) {
   const [Component, setComponent] = useState(null)
   const [status, setStatus] = useState('pending')
 
@@ -12,6 +12,9 @@ function useRemote({ path }) {
    * remote:[scope][module]
    *
    * eg: remote:glide_components/Input
+   *
+   * scope => glide_component
+   * module => ./Input
    */
   const [scope, ...parts] = path.replace('remote:', '').split('/')
   const module = `./${parts.filter(Boolean).join('/')}`

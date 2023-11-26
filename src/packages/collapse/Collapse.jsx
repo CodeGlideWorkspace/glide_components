@@ -1,32 +1,43 @@
-import React, { Children } from 'react'
-import { CaretRightOutlined } from '@ant-design/icons'
+import React from 'react'
 import { Collapse as ACollapse } from 'antd'
+import propTypes from 'prop-types'
 
-function Collapse({ children, ...props }) {
-  const items = []
-  Children.forEach(children, (child) => {
-    if (child?.type?.displayName !== 'CollapsePanel') {
-      return
-    }
+import useCollapse from './useCollapse'
 
-    items.push({
-      key: child.key,
-      label: child.props.title,
-      extra: child.props.action,
-      style: child.props.style,
-      children: child,
-    })
-  })
-
-  return (
-    <ACollapse
-      expandIcon={({ isActive }) => <CaretRightOutlined rotate={isActive ? 90 : 0} />}
-      {...props}
-      items={items}
-    />
-  )
+function Collapse(props) {
+  const { props: aProps } = useCollapse(props)
+  return <ACollapse ghost {...aProps} />
 }
 
-Collapse.displayName = 'Collapse'
+Collapse.propTypes = {
+  /**
+   * 设置展开的面板
+   */
+  value: propTypes.oneOfType([
+    propTypes.string,
+    propTypes.number,
+    propTypes.arrayOf(propTypes.oneOfType([propTypes.string, propTypes.number])),
+  ]),
+
+  /**
+   * 设置默认展开的面板
+   */
+  defaultValue: propTypes.oneOfType([
+    propTypes.string,
+    propTypes.number,
+    propTypes.arrayOf(propTypes.oneOfType([propTypes.string, propTypes.number])),
+  ]),
+
+  /**
+   * 是否有边框
+   */
+  bordered: propTypes.bool,
+
+  /**
+   * 面板展开状态变更事件
+   * (value: string | string[]) => void
+   */
+  onChange: propTypes.func,
+}
 
 export default Collapse

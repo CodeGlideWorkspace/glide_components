@@ -1,11 +1,32 @@
 import React from 'react'
-
-import styles from './CollapsePanel.module.less'
+import propTypes from 'prop-types'
 
 function CollapsePanel({ children }) {
-  return <div className={styles.panel}>{children}</div>
+  return <div>{children}</div>
 }
 
 CollapsePanel.displayName = 'CollapsePanel'
+
+CollapsePanel.propTypes = {
+  /**
+   * 面板名称
+   */
+  name: propTypes.oneOfType([propTypes.string, propTypes.number]).isRequired,
+
+  /**
+   * 面板标题
+   */
+  title: propTypes.string,
+
+  /**
+   * 面板动作区
+   */
+  action: propTypes.oneOfType([propTypes.string, propTypes.element]),
+
+  /**
+   * 样式设置
+   */
+  style: propTypes.object,
+}
 
 export default CollapsePanel
