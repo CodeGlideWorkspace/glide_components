@@ -14,6 +14,7 @@ Form.propTypes = {
    * 表单的布局
    */
   layout: propTypes.oneOf(['horizontal', 'vertical', 'inline']),
+
   /**
    * 表单禁用
    */
