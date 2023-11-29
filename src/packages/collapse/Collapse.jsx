@@ -6,7 +6,11 @@ import useCollapse from './useCollapse'
 
 function Collapse(props) {
   const { props: aProps } = useCollapse(props)
-  return <ACollapse ghost {...aProps} />
+  return <ACollapse {...aProps} />
+}
+
+Collapse.defaultProps = {
+  bordered: true,
 }
 
 Collapse.propTypes = {

@@ -19,6 +19,10 @@ function Remote({ $$path, ...props }) {
   return <Suspense fallback="loading">{renderComponent()}</Suspense>
 }
 
+Remote.defaultProps = {
+  $$path: '',
+}
+
 Remote.propTypes = {
   /**
    * 远程组件的导入路径

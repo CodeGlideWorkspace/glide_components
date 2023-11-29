@@ -2,7 +2,7 @@ import { lazy, useState, useEffect } from 'react'
 
 import { loadRemoteModule } from 'doer'
 
-function useRemote({ path = '' }) {
+function useRemote({ path }) {
   const [Component, setComponent] = useState(null)
   const [status, setStatus] = useState('pending')
 

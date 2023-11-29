@@ -9,6 +9,13 @@ function Form(props) {
   return <AForm {...aProps}>{props.children}</AForm>
 }
 
+Form.defaultProps = {
+  layout: 'vertical',
+  labelAlign: 'left',
+  onChange() {},
+  onSubmit() {},
+}
+
 Form.propTypes = {
   /**
    * 表单的布局

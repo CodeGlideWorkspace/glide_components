@@ -3,10 +3,10 @@ import useForm from './useForm'
 
 export default function useAForm({
   form,
-  layout = 'vertical',
+  layout,
   disabled,
   initialValues,
-  labelAlign = 'left',
+  labelAlign,
   labelCol,
   wrapperCol,
   onSubmit,

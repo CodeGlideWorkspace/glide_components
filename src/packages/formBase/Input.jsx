@@ -18,6 +18,11 @@ const Input = forwardRef(function Input(props, ref) {
   return <AInput ref={aRef} {...aProps} />
 })
 
+Input.defaultProps = {
+  onChange() {},
+  onEnter() {},
+}
+
 Input.propTypes = {
   /**
    * 输入框类型

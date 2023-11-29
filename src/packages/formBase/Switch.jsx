@@ -9,6 +9,10 @@ function Switch({ value, defaultValue, ...props }) {
   return <ASwitch {...aProps} />
 }
 
+Switch.defaultProps = {
+  onChange() {},
+}
+
 Switch.propTypes = {
   /**
    * 是否自动聚焦

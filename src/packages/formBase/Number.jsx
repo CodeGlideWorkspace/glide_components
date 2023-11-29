@@ -10,6 +10,12 @@ const Number = forwardRef(function Number(props, ref) {
   return <AInputNumber ref={aRef} {...aProps} />
 })
 
+Number.defaultProps = {
+  onChange() {},
+  onStep() {},
+  onEnter() {},
+}
+
 Number.propTypes = {
   /**
    * 前缀内容
@@ -39,12 +45,12 @@ Number.propTypes = {
   /**
    * 输入框值
    */
-  value: propTypes.string,
+  value: propTypes.number,
 
   /**
    * 输入框默认值
    */
-  defaultValue: propTypes.string,
+  defaultValue: propTypes.number,
 
   /**
    * 是否禁用

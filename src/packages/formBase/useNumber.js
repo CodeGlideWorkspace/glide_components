@@ -1,6 +1,6 @@
 import { useImperativeHandle, useRef } from 'react'
 
-export default function useInput(
+export default function useNumber(
   {
     value,
     placeholder,
@@ -34,7 +34,7 @@ export default function useInput(
     }
   })
 
-  function handleChange({ target: { value } }) {
+  function handleChange(value) {
     onChange(value)
   }
 

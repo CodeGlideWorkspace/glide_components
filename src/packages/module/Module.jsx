@@ -9,6 +9,10 @@ function Module(props) {
   return <ACard {...aProps}>{props.children}</ACard>
 }
 
+Module.defaultProps = {
+  bordered: true,
+}
+
 Module.propTypes = {
   /**
    * 卡片的标题
