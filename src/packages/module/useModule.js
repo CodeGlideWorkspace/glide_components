@@ -1,3 +1,3 @@
-export default function useModule({ bordered, actions, title }) {
-  return { props: { bordered, extra: actions, title } }
+export default function useModule({ bordered, style, actions, title }) {
+  return { props: { style, bordered, extra: actions, title } }
 }

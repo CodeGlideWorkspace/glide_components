@@ -17,9 +17,11 @@
     ]
   },
   "dependencies": {
+    "@ant-design/icons": "^5.2.6",
     "@visactor/vchart": "^1.6.0",
     "@visactor/vtable": "^0.13.3",
     "antd": "^5.11.0",
+    "classnames": "^2.3.2",
     "lodash.merge": "^4.6.2",
     "prop-types": "^15.8.1",
     "react-dnd": "^16.0.1",

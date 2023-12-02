@@ -13,12 +13,14 @@ module.exports = {
   exposes: {
     './style': './src/packages/style/index.js',
     './utils': './src/packages/utils/index.js',
+    './Icon': './src/packages/icon/index.js',
     './ConfigProvider': './src/packages/configProvider/index.js',
     './Module': './src/packages/module/index.js',
     './Form': './src/packages/form/index.js',
     './FormBase': './src/packages/formBase/index.js',
     './Collapse': './src/packages/collapse/index.js',
     './Remote': './src/packages/remote/index.js',
+    './Layout': './src/packages/layout/index.js',
   },
   shared: {},
 

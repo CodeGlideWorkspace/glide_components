@@ -1,19 +1,41 @@
 import React from 'react'
 import { Card as ACard } from 'antd'
 import propTypes from 'prop-types'
+import classNames from 'classnames'
+import { theme } from 'remote:glide_components/ConfigProvider'
 
 import useModule from './useModule'
 
+import styles from './Module.module.less'
+
 function Module(props) {
+  const { token } = theme.useToken()
+
   const { props: aProps } = useModule(props)
-  return <ACard {...aProps}>{props.children}</ACard>
+  return (
+    <ACard
+      className={classNames(styles.module, props.className)}
+      headStyle={{ border: 'none' }}
+      bodyStyle={{ flex: '1 1 auto', overflow: 'auto', borderTop: `1px solid ${token.colorBorderSecondary}` }}
+      {...aProps}
+    >
+      {props.children}
+    </ACard>
+  )
 }
 
 Module.defaultProps = {
-  bordered: true,
+  bordered: false,
 }
 
 Module.propTypes = {
+  /**
+   * 指定样式
+   */
+  style: propTypes.object,
+
+  className: propTypes.string,
+
   /**
    * 卡片的标题
    */
