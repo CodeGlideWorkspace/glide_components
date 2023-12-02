@@ -3,6 +3,8 @@
     text-align: center;
     width: 100%;
     color: #fff;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
 .over {
