@@ -2,10 +2,10 @@ import React from 'react'
 import { useDrag } from 'react-dnd'
 
 import styles from './Draggable.module.css'
-function Draggable({ children, style, id, type }) {
+function Draggable({ children, style, name, onDrag, type }) {
   const [{ isDragging }, drag] = useDrag({
     type,
-    // item: { type, id },
+    item: { type, name },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
@@ -18,9 +18,9 @@ function Draggable({ children, style, id, type }) {
     // start(item, monitor) {
     //     onDragStart(item, monitor)
     // },
-    // drag(item, monitor) {
-    //     onDrag(item, monitor)
-    // },
+    drag(item, monitor) {
+      onDrag(item, monitor)
+    },
     // drop(item, monitor) {
     //     onDrop(item, monitor)
     // },

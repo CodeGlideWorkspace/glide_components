@@ -2,12 +2,12 @@ import React from 'react'
 import { useDrop } from 'react-dnd'
 
 import styles from './Droppable.module.css'
-function Droppable({ children, style, accept }) {
+function Droppable({ children, onDrop, style, accept }) {
   const [{ isOver, canDrop }, drop] = useDrop({
-    accept: accept,
-    // drop(item, monitor) {
-    //     onDrop(item, monitor)
-    // },
+    accept,
+    drop(item, monitor) {
+      onDrop(item, monitor)
+    },
     // accept(item, monitor) {
     //     onDropAccepted(item, monitor)
     // },

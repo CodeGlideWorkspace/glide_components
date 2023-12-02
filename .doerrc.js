@@ -22,6 +22,7 @@ module.exports = {
 
     './Dnd': './src/packages/dnd/index.js',
     './Col': './src/packages/col/index.js',
+    './Button': './src/packages/button/index.js',
     './Row': './src/packages/row/index.js',
   },
   shared: {},
