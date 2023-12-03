@@ -9,5 +9,5 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "eslint.validate": ["javascript", "javascriptreact"],
-  "cSpell.words": ["Sider"]
+  "cSpell.words": ["immer", "Sider", "zustand"]
 }
