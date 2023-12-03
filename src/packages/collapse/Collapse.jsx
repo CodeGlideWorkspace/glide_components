@@ -38,6 +38,11 @@ Collapse.propTypes = {
   bordered: propTypes.bool,
 
   /**
+   * 面板隐藏时卸载组件
+   */
+  destroyInactivePanel: propTypes.bool,
+
+  /**
    * 面板展开状态变更事件
    * (value: string | string[]) => void
    */

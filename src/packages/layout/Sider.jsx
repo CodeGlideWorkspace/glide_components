@@ -46,6 +46,11 @@ Sider.propTypes = {
   collapsible: propTypes.bool,
 
   /**
+   * 收起状态
+   */
+  collapsed: propTypes.bool,
+
+  /**
    * 默认收起状态
    */
   defaultCollapsed: propTypes.bool,

@@ -15,8 +15,13 @@ function Module(props) {
   return (
     <ACard
       className={classNames(styles.module, props.className)}
-      headStyle={{ border: 'none' }}
-      bodyStyle={{ flex: '1 1 auto', overflow: 'auto', borderTop: `1px solid ${token.colorBorderSecondary}` }}
+      headStyle={{ border: 'none', ...props.headStyle }}
+      bodyStyle={{
+        flex: '1 1 auto',
+        overflow: 'auto',
+        borderTop: `1px solid ${token.colorBorderSecondary}`,
+        ...props.bodyStyle,
+      }}
       {...aProps}
     >
       {props.children}
@@ -33,6 +38,8 @@ Module.propTypes = {
    * 指定样式
    */
   style: propTypes.object,
+  headStyle: propTypes.object,
+  bodyStyle: propTypes.object,
 
   className: propTypes.string,
 

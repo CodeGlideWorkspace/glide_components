@@ -21,6 +21,7 @@ module.exports = {
     './Collapse': './src/packages/collapse/index.js',
     './Remote': './src/packages/remote/index.js',
     './Layout': './src/packages/layout/index.js',
+    './Tab': './src/packages/tab/index.js',
   },
   shared: {},
 
