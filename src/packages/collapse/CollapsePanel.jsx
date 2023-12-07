@@ -21,7 +21,7 @@ CollapsePanel.propTypes = {
   /**
    * 面板动作区
    */
-  action: propTypes.oneOfType([propTypes.string, propTypes.element]),
+  action: propTypes.element,
 
   /**
    * 样式设置

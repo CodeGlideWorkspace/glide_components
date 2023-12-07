@@ -1,6 +1,15 @@
 import { Children } from 'react'
 
-export default function useTab({ value, defaultValue, centered, action, destroyInactivePanel, onChange, children }) {
+export default function useTab({
+  value,
+  defaultValue,
+  className,
+  centered,
+  action,
+  destroyInactivePanel,
+  onChange,
+  children,
+}) {
   const items = []
   Children.forEach(children, (child) => {
     if (child?.type?.displayName !== 'TabPanel') {
@@ -19,9 +28,10 @@ export default function useTab({ value, defaultValue, centered, action, destroyI
     props: {
       activeKey: value,
       defaultActiveKey: defaultValue,
+      className,
       centered,
       tabBarExtraContent: action,
-      destroyInactivePanel,
+      destroyInactiveTabPane: destroyInactivePanel,
       items,
       onChange,
     },

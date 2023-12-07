@@ -65,7 +65,7 @@ export default function useInput(
       suffix,
       bordered,
       disabled,
-      clearable,
+      allowClear: clearable,
       maxLength,
       showCount,
       ...textareaProps,

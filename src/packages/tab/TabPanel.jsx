@@ -1,8 +1,8 @@
 import React from 'react'
 import propTypes from 'prop-types'
 
-function TabPanel({ children }) {
-  return <div>{children}</div>
+function TabPanel({ className, children }) {
+  return <div className={className}>{children}</div>
 }
 
 TabPanel.displayName = 'TabPanel'
@@ -22,6 +22,8 @@ TabPanel.propTypes = {
    * 禁用
    */
   disabled: propTypes.bool,
+
+  className: propTypes.string,
 }
 
 export default TabPanel

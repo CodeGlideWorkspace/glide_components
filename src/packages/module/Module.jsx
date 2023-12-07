@@ -56,7 +56,7 @@ Module.propTypes = {
   /**
    * 面板动作区
    */
-  action: propTypes.oneOfType([propTypes.string, propTypes.element]),
+  action: propTypes.element,
 }
 
 export default Module

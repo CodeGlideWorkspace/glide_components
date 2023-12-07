@@ -24,6 +24,8 @@ Tab.propTypes = {
    */
   defaultValue: propTypes.string,
 
+  className: propTypes.string,
+
   /**
    * 标签居中显示
    */
@@ -32,7 +34,7 @@ Tab.propTypes = {
   /**
    * 面板动作区
    */
-  action: propTypes.oneOfType([propTypes.string, propTypes.element]),
+  action: propTypes.element,
 
   /**
    * 面板隐藏时卸载组件
