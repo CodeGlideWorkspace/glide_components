@@ -1,4 +1,5 @@
-import { isFalse } from '../is'
+import { isFalse } from 'remote:glide_components/utils'
+
 import EventEngineAbstract from './EventEngineAbstract'
 
 class EventInterrupt extends EventEngineAbstract {

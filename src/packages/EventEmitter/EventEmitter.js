@@ -1,5 +1,5 @@
-import { isFunction, isString } from '../is'
-import { uuid } from '../tool'
+import { isFunction, isString, uuid } from 'remote:glide_components/utils'
+
 import EventEngineAbstract from './EventEngineAbstract'
 import Event from './Event'
 

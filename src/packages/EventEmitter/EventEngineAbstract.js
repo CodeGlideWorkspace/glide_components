@@ -1,4 +1,4 @@
-import { isFunction } from '../is'
+import { isFunction } from 'remote:glide_components/utils'
 
 /**
  * 事件触发引擎接口类
