@@ -9,11 +9,6 @@ function Select(props) {
   return <ASelect ref={aRef} {...aProps} />
 }
 
-Select.defaultProps = {
-  onChange() {},
-  onSearch() {},
-}
-
 Select.propTypes = {
   /**
    * 是否允许清空
