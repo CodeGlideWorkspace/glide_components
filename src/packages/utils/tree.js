@@ -97,7 +97,7 @@ export function findTrees(trees, find, option) {
   let item
   trees.some((tree) => {
     item = findTree(tree, find, option)
-    return isUndefined(item)
+    return !!item
   })
 
   return item

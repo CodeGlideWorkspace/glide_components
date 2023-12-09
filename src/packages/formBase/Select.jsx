@@ -97,7 +97,7 @@ Select.propTypes = {
   /**
    * 下拉框选项
    */
-  options: propTypes.arrayOf(
+  data: propTypes.arrayOf(
     propTypes.oneOfType([
       propTypes.shape({
         title: propTypes.string,

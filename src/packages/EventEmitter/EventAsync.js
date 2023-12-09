@@ -2,7 +2,7 @@ import EventEngineAbstract from './EventEngineAbstract'
 
 class EventAsync extends EventEngineAbstract {
   /**
-   * 异步串行触发事件
+   * 异步并行触发事件
    *
    * @param {...any} params 事件参数
    *
@@ -13,11 +13,19 @@ class EventAsync extends EventEngineAbstract {
       return false
     }
 
-    for (let i = 0; i < this.events.length; i++) {
-      await this.events[i](...params)
-    }
+    const tasks = this.events.reduce((result, event) => {
+      result.push(event(...params))
+      return result
+    }, [])
 
-    return true
+    const returnValue = await Promise.all(tasks)
+      .then(() => true)
+      .catch((e) => {
+        console.error(e)
+        return false
+      })
+
+    return returnValue
   }
 }
 

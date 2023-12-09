@@ -19,6 +19,31 @@ class EventEmitter {
   events = {}
 
   /**
+   * 默认事件引擎
+   */
+  Engine = Event
+
+  constructor(Engine) {
+    if (Engine instanceof EventEngineAbstract) {
+      this.Engine = Engine
+    }
+  }
+
+  getEngine(Engine) {
+    if (Engine instanceof EventEngineAbstract) {
+      return Engine
+    }
+
+    return this.Engine
+  }
+
+  setEngine(Engine) {
+    if (Engine instanceof EventEngineAbstract) {
+      this.Engine = Engine
+    }
+  }
+
+  /**
    * 注册事件
    *
    * @param {String} name 事件名称
@@ -27,7 +52,7 @@ class EventEmitter {
    *
    * @returns {String} eventId 可用于注销事件
    */
-  on(name, event, EventEngine = Event) {
+  on(name, event, EventEngine) {
     if (!isString(name)) {
       return
     }
@@ -44,7 +69,7 @@ class EventEmitter {
     this.events[name].push({
       eventId,
       event,
-      Engine: EventEngine,
+      Engine: this.getEngine(EventEngine),
     })
 
     return eventId
@@ -59,7 +84,7 @@ class EventEmitter {
    *
    * @returns {Boolean} 是否注销成功，不存在时返回注销失败
    */
-  off(name, eventOrEventId, EventEngine = Event) {
+  off(name, eventOrEventId, EventEngine) {
     if (!isString(name)) {
       return
     }
@@ -72,8 +97,9 @@ class EventEmitter {
       return false
     }
 
+    const Engine = this.getEngine(EventEngine)
     const events = this.events[name].filter((item) => {
-      if (item.Engine !== EventEngine) {
+      if (item.Engine !== Engine) {
         return false
       }
 
@@ -99,24 +125,26 @@ class EventEmitter {
    * @returns {Void}
    */
   clear(name, EventEngine) {
-    if (!name && !EventEngine) {
+    const Engine = EventEngine instanceof EventEngineAbstract ? EventEngine : undefined
+
+    if (!name && !Engine) {
       this.events = {}
       return
     }
 
     if (!name) {
       Object.keys(this.events).forEach((eventName) => {
-        this.events[eventName] = this.events[eventName].filter((item) => item.Engine !== EventEngine)
+        this.events[eventName] = this.events[eventName].filter((item) => item.Engine !== Engine)
       })
       return
     }
 
-    if (!EventEngine) {
+    if (!Engine) {
       delete this.events[name]
       return
     }
 
-    this.events[name] = this.events[name].filter((item) => item.Engine !== EventEngine)
+    this.events[name] = this.events[name].filter((item) => item.Engine !== Engine)
   }
 
   /**
@@ -138,10 +166,8 @@ class EventEmitter {
       return
     }
 
-    let CurrentEventEngine = Event
-    if (EventEngine instanceof EventEngineAbstract) {
-      CurrentEventEngine = EventEngine
-    } else {
+    const CurrentEventEngine = this.getEngine(EventEngine)
+    if (!(EventEngine instanceof EventEngineAbstract)) {
       params.unshift(EventEngine)
     }
 
