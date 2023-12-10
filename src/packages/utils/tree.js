@@ -102,3 +102,62 @@ export function findTrees(trees, find, option) {
 
   return item
 }
+
+/**
+ * 树形结构组装方法
+ *
+ * @param {TreeNode} tree 树形根节点
+ * @param {Function} reduce 组装回调函数
+ * @param {Any} initialValue 初始化值
+ * @param {Object} option
+ * @param {String} option.childrenKey 子节点的键名，默认为'children'
+ *
+ * @returns {Any} 组装完成的结果
+ *
+ * example:
+ *
+ * const tree = { id: 1, children: [{ id: 2 }, { id: 3 }] }
+ * const value = reduceTree(tree, (result, child) => {
+ *  result[child.id] = true
+ *  return result
+ * }, {})
+ */
+export function reduceTree(tree, reduce, initialValue, option = {}) {
+  const nextValue = reduce(initialValue, tree)
+
+  const { childrenKey = 'children' } = option
+  const children = isArray(tree[childrenKey]) ? tree[childrenKey] : []
+
+  return children.reduce((result, child) => {
+    return reduceTree(child, reduce, result, option)
+  }, nextValue)
+}
+
+/**
+ * 树形批量组装方法
+ *
+ * @param {TreeNode[]} trees 树形根节点数组
+ * @param {Function} reduce 组装回调函数
+ * @param {Any} initialValue 初始化值
+ * @param {Object} option
+ * @param {String} option.childrenKey 子节点的键名，默认为'children'
+ *
+ * @returns {Any} 组装完成的结果
+ *
+ * example:
+ *
+ * const trees = [{ id: 1, children: [{ id: 1.1 }, { id: 1.2 }] }, { id: 2 }]
+ * const value = reduceTrees(trees, (result, child) => {
+ *  result[child.id] = true
+ *  return result
+ * }, {})
+ */
+export function reduceTrees(trees, reduce, initialValue, option) {
+  if (!isArray(trees)) {
+    return initialValue
+  }
+
+  return trees.reduce((result, tree) => {
+    return reduceTree(tree, reduce, result, option)
+  }, initialValue)
+}

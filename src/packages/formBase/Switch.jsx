@@ -4,7 +4,7 @@ import propTypes from 'prop-types'
 
 import useSwitch from './useSwitch'
 
-function Switch({ value, defaultValue, ...props }) {
+function Switch(props) {
   const { props: aProps } = useSwitch(props)
   return <ASwitch {...aProps} />
 }

@@ -4,6 +4,8 @@ import { Select as ASelect } from 'antd'
 
 import useSelect from './useSelect'
 
+import './Select.module.less'
+
 function Select(props) {
   const { props: aProps, ref: aRef } = useSelect(props)
   return <ASelect ref={aRef} {...aProps} />
