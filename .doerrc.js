@@ -21,9 +21,8 @@ module.exports = {
     './Remote': './src/packages/remote/index.js',
 
     './Dnd': './src/packages/dnd/index.js',
-    './Col': './src/packages/col/index.js',
+    './Grid': './src/packages/grid/index.js',
     './Button': './src/packages/button/index.js',
-    './Row': './src/packages/row/index.js',
   },
   shared: {},
 

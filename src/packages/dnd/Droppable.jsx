@@ -99,10 +99,12 @@ function Droppable({ children, onDrop, state = {}, depth, style, accept }) {
   drop(dropRef)
 
   return (
-    <div ref={dropRef} style={{ ...style, backgroundColor }} className={styles.droppable}>
-      {dropPosition}
+    <>
+      <span ref={dropRef} style={{ ...style, backgroundColor }} className={styles.droppable}>
+        {dropPosition}
+      </span>
       {children}
-    </div>
+    </>
   )
 }
 export default Droppable
