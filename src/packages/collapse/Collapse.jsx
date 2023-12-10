@@ -6,7 +6,11 @@ import useCollapse from './useCollapse'
 
 function Collapse(props) {
   const { props: aProps } = useCollapse(props)
-  return <ACollapse ghost {...aProps} />
+  return <ACollapse {...aProps} />
+}
+
+Collapse.defaultProps = {
+  bordered: true,
 }
 
 Collapse.propTypes = {
@@ -32,6 +36,11 @@ Collapse.propTypes = {
    * 是否有边框
    */
   bordered: propTypes.bool,
+
+  /**
+   * 面板隐藏时卸载组件
+   */
+  destroyInactivePanel: propTypes.bool,
 
   /**
    * 面板展开状态变更事件

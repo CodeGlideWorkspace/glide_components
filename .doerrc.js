@@ -13,6 +13,11 @@ module.exports = {
   exposes: {
     './style': './src/packages/style/index.js',
     './utils': './src/packages/utils/index.js',
+    './hooks': './src/packages/hooks/index.js',
+    './store': './src/packages/store/index.js',
+    './EventEmitter': './src/packages/EventEmitter/index.js',
+    './Base': './src/packages/base/index.js',
+    './Icon': './src/packages/icon/index.js',
     './ConfigProvider': './src/packages/configProvider/index.js',
     './Module': './src/packages/module/index.js',
     './Form': './src/packages/form/index.js',
@@ -23,6 +28,8 @@ module.exports = {
     './Dnd': './src/packages/dnd/index.js',
     './Grid': './src/packages/grid/index.js',
     './Button': './src/packages/button/index.js',
+    './Layout': './src/packages/layout/index.js',
+    './Tab': './src/packages/tab/index.js',
   },
   shared: {},
 

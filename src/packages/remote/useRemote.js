@@ -2,7 +2,7 @@ import { lazy, useState, useEffect } from 'react'
 
 import { loadRemoteModule } from 'doer'
 
-function useRemote({ path = '' }) {
+function useRemote({ path, exportName }) {
   const [Component, setComponent] = useState(null)
   const [status, setStatus] = useState('pending')
 
@@ -25,7 +25,11 @@ function useRemote({ path = '' }) {
       return
     }
     try {
-      const Com = lazy(() => loadRemoteModule(scope, module))
+      const Com = lazy(() =>
+        loadRemoteModule(scope, module).then((m) => {
+          return { default: m[exportName] }
+        }),
+      )
       setComponent(Com)
       setStatus('succeed')
     } catch (e) {

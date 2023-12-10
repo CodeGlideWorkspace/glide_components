@@ -28,6 +28,9 @@ function ConfigProvider({ theme, size, children, ...props }) {
           errorActiveShadow: 'none',
           warningActiveShadow: 'none',
         },
+        Card: {
+          boxShadowTertiary: 'none',
+        },
       },
       algorithm: ATheme.compactAlgorithm,
       hashed: false,

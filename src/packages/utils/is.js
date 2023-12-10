@@ -42,3 +42,7 @@ export function isFunction(data) {
 export function isValuable(data) {
   return !isUndefined(data) && !isNull(data) && !isNaN(data) && data !== ''
 }
+
+export function isFalse(data) {
+  return isBoolean(data) && !data
+}

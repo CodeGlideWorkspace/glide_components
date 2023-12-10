@@ -13,4 +13,10 @@
 
   /* 圆角尺寸 */
   --cg-border-radius: 2px;
+
+  /* 边框颜色 */
+  --cg-border-color: #bbb;
+
+  /* 边框颜色2 */
+  --cg-border-color-Secondary: #cecece;
 }

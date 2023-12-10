@@ -28,7 +28,7 @@ function useRules({ required, validators, dependencies, shouldUpdate }) {
     }
   }
 
-  const hasDependencies = (dependencies && dependencies.length) || shouldUpdate
+  const hasDependencies = (dependencies && !!dependencies.length) || !!shouldUpdate
   if (hasDependencies) {
     validators.forEach((validator) => {
       rules.push(() => {

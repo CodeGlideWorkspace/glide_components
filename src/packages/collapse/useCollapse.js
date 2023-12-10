@@ -1,7 +1,15 @@
 import React, { Children } from 'react'
 import { CaretRightOutlined } from '@ant-design/icons'
 
-export default function useCollapse({ value, defaultValue, ghost, bordered = true, children, onChange }) {
+export default function useCollapse({
+  value,
+  defaultValue,
+  destroyInactivePanel,
+  ghost,
+  bordered,
+  children,
+  onChange,
+}) {
   const items = []
   Children.forEach(children, (child) => {
     if (child?.type?.displayName !== 'CollapsePanel') {
@@ -9,7 +17,7 @@ export default function useCollapse({ value, defaultValue, ghost, bordered = tru
     }
 
     items.push({
-      key: child.name,
+      key: child.props.name,
       label: child.props.title,
       extra: child.props.action,
       style: child.props.style,
@@ -21,5 +29,16 @@ export default function useCollapse({ value, defaultValue, ghost, bordered = tru
     return <CaretRightOutlined rotate={isActive ? 90 : 0} />
   }
 
-  return { props: { activeKey: value, bordered, ghost, defaultActiveKey: defaultValue, onChange, expandIcon, items } }
+  return {
+    props: {
+      activeKey: value,
+      bordered,
+      ghost,
+      defaultActiveKey: defaultValue,
+      destroyInactivePanel,
+      onChange,
+      expandIcon,
+      items,
+    },
+  }
 }
