@@ -1,3 +1,27 @@
-import { LeftOutlined, RightOutlined, DownOutlined, UpOutlined, CopyOutlined, DeleteOutlined } from '@ant-design/icons'
+import {
+  LeftOutlined,
+  RightOutlined,
+  DownOutlined,
+  UpOutlined,
+  CopyOutlined,
+  DeleteOutlined,
+  ApiOutlined,
+  PlusSquareOutlined,
+  MinusSquareOutlined,
+  PlusOutlined,
+  MinusOutlined,
+} from '@ant-design/icons'
 
-export { LeftOutlined, RightOutlined, DownOutlined, UpOutlined, CopyOutlined, DeleteOutlined }
+export {
+  LeftOutlined,
+  RightOutlined,
+  DownOutlined,
+  UpOutlined,
+  CopyOutlined,
+  DeleteOutlined,
+  ApiOutlined,
+  PlusSquareOutlined,
+  MinusSquareOutlined,
+  PlusOutlined,
+  MinusOutlined,
+}

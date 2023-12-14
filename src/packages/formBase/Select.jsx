@@ -13,6 +13,13 @@ function Select(props) {
 
 Select.propTypes = {
   /**
+   * 指定样式
+   */
+  style: propTypes.object,
+
+  className: propTypes.string,
+
+  /**
    * 是否允许清空
    */
   clearable: propTypes.bool,

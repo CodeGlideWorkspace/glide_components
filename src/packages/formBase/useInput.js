@@ -14,6 +14,8 @@ function getAutoSize(rowSize) {
 export default function useInput(
   {
     value,
+    style,
+    className,
     type,
     placeholder,
     defaultValue,
@@ -58,6 +60,8 @@ export default function useInput(
 
   return {
     props: {
+      style,
+      className,
       placeholder,
       value,
       defaultValue,

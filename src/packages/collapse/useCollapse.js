@@ -21,6 +21,7 @@ export default function useCollapse({
       label: child.props.title,
       extra: child.props.action,
       style: child.props.style,
+      className: child.props.className,
       children: child,
     })
   })

@@ -50,6 +50,8 @@ function useRules({ required, validators, dependencies, shouldUpdate }) {
 }
 
 export default function useAItem({
+  style,
+  className,
   name,
   label,
   required,
@@ -69,6 +71,8 @@ export default function useAItem({
 
   return {
     props: {
+      style,
+      className,
       name,
       label,
       required,
