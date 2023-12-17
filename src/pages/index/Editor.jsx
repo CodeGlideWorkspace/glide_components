@@ -5,7 +5,7 @@ import { Droppable } from '@/packages/dnd'
 import EmptyBox from './components/EmptyBox'
 import RowBox from './components/RowBox'
 import ModuleBox from './components/ModuleBox'
-import Column3 from './components/column3'
+import Column3 from './components/Column3'
 import EditorCol from './components/EditorCol'
 
 const genUUID = () => {
