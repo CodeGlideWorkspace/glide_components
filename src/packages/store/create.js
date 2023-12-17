@@ -1,7 +1,6 @@
 import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
 import { immer } from 'zustand/middleware/immer'
-import { useShallow } from 'zustand/react/shallow'
 import { isUndefined } from 'remote:glide_components/utils'
 
 // 是否开启redux-devtools调试模式
@@ -13,7 +12,7 @@ const IS_ENABLED_DEVTOOLS = process.env.NODE_ENV === 'development'
  * @param {Function} set zustand原始的set函数
  * @param {Function} action 动作函数
  *
- * @returns {Function} (immerState) => {}
+ * @returns {Function} (handle, replace) => void
  */
 function createSet(set, action) {
   return function (handle, replace) {
@@ -71,14 +70,16 @@ export function createStore(store, name) {
 }
 
 /**
- * 创建浅对比存储对象
+ * 创建快速选择器
  *
- * @param {Function} useStore 存储对象函数
- * @returns
+ * @param {*} zStore zustand存储对象函数
+ * @returns {Hook}
  */
-export function createShadowStore(useStore) {
-  return function (...rest) {
-    const shadow = useShallow(...rest)
-    return useStore(shadow)
+export function withSelector(zStore) {
+  zStore.use = {}
+  for (const k of Object.keys(zStore.getState())) {
+    zStore.use[k] = () => zStore((s) => s[k])
   }
+
+  return zStore
 }
