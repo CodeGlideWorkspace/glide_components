@@ -25,6 +25,13 @@ Input.defaultProps = {
 
 Input.propTypes = {
   /**
+   * 指定样式
+   */
+  style: propTypes.object,
+
+  className: propTypes.string,
+
+  /**
    * 输入框类型
    */
   type: propTypes.oneOf(['textarea', 'password', 'text']),

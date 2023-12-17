@@ -1,8 +1,8 @@
 import React from 'react'
 import propTypes from 'prop-types'
 
-function CollapsePanel({ children }) {
-  return <div>{children}</div>
+function CollapsePanel(props) {
+  return <div>{props.children}</div>
 }
 
 CollapsePanel.displayName = 'CollapsePanel'
@@ -27,6 +27,8 @@ CollapsePanel.propTypes = {
    * 样式设置
    */
   style: propTypes.object,
+
+  className: propTypes.string,
 }
 
 export default CollapsePanel

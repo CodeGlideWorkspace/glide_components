@@ -3,6 +3,8 @@ import { isFunction } from 'remote:glide_components/utils'
 
 export default function useSelect(
   {
+    style,
+    className,
     value,
     defaultValue,
     clearable,
@@ -78,6 +80,8 @@ export default function useSelect(
 
   return {
     props: {
+      style,
+      className,
       value,
       defaultValue,
       allowClear: clearable,

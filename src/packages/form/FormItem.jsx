@@ -11,6 +11,13 @@ function FormItem(props) {
 
 FormItem.propTypes = {
   /**
+   * 指定样式
+   */
+  style: propTypes.object,
+
+  className: propTypes.string,
+
+  /**
    * 表单项名称
    */
   name: propTypes.oneOfType([
