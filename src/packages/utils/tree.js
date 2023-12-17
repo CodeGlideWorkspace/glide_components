@@ -1,4 +1,4 @@
-import { isArray, isUndefined } from './is'
+import { isArray, isUndefined, isObject } from './is'
 
 /**
  * 树形结构遍历方法
@@ -7,6 +7,7 @@ import { isArray, isUndefined } from './is'
  * @param {Function} each 遍历回调函数
  * @param {Object} option
  * @param {String} option.childrenKey 子节点的键名，默认为'children'
+ * @param {String} option.slotKey 其他子节点容器名，默认为'slots'
  *
  * @returns {Void}
  *
@@ -16,9 +17,25 @@ import { isArray, isUndefined } from './is'
  * eachTree(tree, (node) => console.log(node.id))
  */
 export function eachTree(tree, each, option = {}) {
-  const { childrenKey = 'children' } = option
+  const { childrenKey = 'children', slotKey = 'slots' } = option
 
   each(tree)
+
+  // 遍历多个插槽节点
+  if (isObject(tree[slotKey])) {
+    Object.keys(tree[slotKey]).forEach((slotName) => {
+      const slots = tree[slotKey]
+      const slotChildren = isArray(slots[slotName]) ? slots[slotName] : []
+      slotChildren.forEach((child) => eachTree(child, each, option))
+    })
+  }
+
+  // 遍历单个插槽节点
+  if (isArray(tree[slotKey])) {
+    tree[slotKey].forEach((child) => eachTree(child, each, option))
+  }
+
+  // 遍历子节点
   const children = isArray(tree[childrenKey]) ? tree[childrenKey] : []
   children.forEach((child) => eachTree(child, each, option))
 }
@@ -30,6 +47,7 @@ export function eachTree(tree, each, option = {}) {
  * @param {Function} each 遍历回调函数
  * @param {Object} option
  * @param {String} option.childrenKey 子节点的键名，默认为'children'
+ * @param {String} option.slotKey 其他子节点容器名，默认为'slots'
  *
  * @returns {Void}
  *
@@ -50,6 +68,7 @@ export function eachTrees(trees, each, option) {
  * @param {Function} find 遍历回调函数
  * @param {Object} option
  * @param {String} option.childrenKey 子节点的键名，默认为'children'
+ * @param {String} option.slotKey 其他子节点容器名，默认为'slots'
  *
  * @returns {TreeNode | Undefined}
  *
@@ -64,9 +83,36 @@ export function findTree(tree, find, option = {}) {
     return tree
   }
 
-  const { childrenKey = 'children' } = option
-  const children = isArray(tree[childrenKey]) ? tree[childrenKey] : []
+  const { childrenKey = 'children', slotKey = 'slots' } = option
+
   let item
+  // 查找多个插槽节点
+  if (isObject(tree[slotKey])) {
+    Object.keys(tree[slotKey]).forEach((slotName) => {
+      const slots = tree[slotKey]
+      const slotChildren = isArray(slots[slotName]) ? slots[slotName] : []
+      slotChildren.some((child) => {
+        item = findTree(child, find, option)
+        return isUndefined(item)
+      })
+    })
+  }
+  if (item) {
+    return item
+  }
+
+  // 查找单个插槽节点
+  if (isArray(tree[slotKey])) {
+    tree[slotKey].some((child) => {
+      item = findTree(child, find, option)
+      return isUndefined(item)
+    })
+  }
+  if (item) {
+    return item
+  }
+
+  const children = isArray(tree[childrenKey]) ? tree[childrenKey] : []
   children.some((child) => {
     item = findTree(child, find, option)
     return isUndefined(item)
@@ -81,6 +127,7 @@ export function findTree(tree, find, option = {}) {
  * @param {Function} find 遍历回调函数
  * @param {Object} option
  * @param {String} option.childrenKey 子节点的键名，默认为'children'
+ * @param {String} option.slotKey 其他子节点容器名，默认为'slots'
  *
  * @returns {TreeNode}
  *
@@ -111,6 +158,7 @@ export function findTrees(trees, find, option) {
  * @param {Any} initialValue 初始化值
  * @param {Object} option
  * @param {String} option.childrenKey 子节点的键名，默认为'children'
+ * @param {String} option.slotKey 其他子节点容器名，默认为'slots'
  *
  * @returns {Any} 组装完成的结果
  *
@@ -123,11 +171,29 @@ export function findTrees(trees, find, option) {
  * }, {})
  */
 export function reduceTree(tree, reduce, initialValue, option = {}) {
-  const nextValue = reduce(initialValue, tree)
+  let nextValue = reduce(initialValue, tree)
 
-  const { childrenKey = 'children' } = option
+  const { childrenKey = 'children', slotKey = 'slots' } = option
+
+  // 组装多个插槽节点
+  if (isObject(tree[slotKey])) {
+    Object.keys(tree[slotKey]).forEach((slotName) => {
+      const slots = tree[slotKey]
+      const slotChildren = isArray(slots[slotName]) ? slots[slotName] : []
+      nextValue = slotChildren.reduce((result, child) => {
+        return reduceTree(child, reduce, result, option)
+      }, nextValue)
+    })
+  }
+
+  // 组装单个插槽节点
+  if (isArray(tree[slotKey])) {
+    nextValue = tree[slotKey].reduce((result, child) => {
+      return reduceTree(child, reduce, result, option)
+    }, nextValue)
+  }
+
   const children = isArray(tree[childrenKey]) ? tree[childrenKey] : []
-
   return children.reduce((result, child) => {
     return reduceTree(child, reduce, result, option)
   }, nextValue)
