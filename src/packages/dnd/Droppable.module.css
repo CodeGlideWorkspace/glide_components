@@ -1,0 +1,20 @@
+.droppable {
+    border: 2px solid greenyellow;
+    text-align: center;
+    width: 100%;
+    color: #fff;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.over {
+    background-color: #ebffd4;
+}
+
+.can {
+    background-color: #f7ffee;
+}
+
+.big {
+    height: 70%;
+}
