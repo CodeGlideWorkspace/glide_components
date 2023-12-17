@@ -1,3 +1,9 @@
+/**
+ * 页面加载流程说明
+ * 1. 如果id存在，说明是编辑页面，需要请求接口获取数据
+ * 2. 如果id不存在，说明是新建页面，需要使用默认数据
+ *
+ */
 import React from 'react'
 
 import styles from './Index.module.css'
@@ -9,28 +15,9 @@ import { DndProvider } from '@/packages/dnd'
 import Library from './Library'
 import Editor from './Editor'
 
+import { initData } from './initData'
+
 export default function Index() {
-  const initData = [
-    {
-      id: '1',
-      type: 'row', // 'module' | 'row
-      name: 'row1',
-      slots: [
-        {
-          id: '2',
-          type: 'col',
-          name: 'col1',
-          slots: [
-            {
-              id: '3',
-              type: 'module',
-              name: 'module1',
-            },
-          ],
-        },
-      ],
-    },
-  ]
   return (
     <div className={styles.index}>
       <DndProvider>
