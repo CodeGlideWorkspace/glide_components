@@ -1,23 +1,22 @@
 import { lazy, useState, useEffect } from 'react'
+import { isObject } from 'remote:glide_components/utils'
 
-import { loadRemoteModule } from 'doer'
+import loadRemote from './loadRemote'
 
-function useRemote({ path, exportName }) {
+export function parsePath(remoteDefinition) {
+  if (!remoteDefinition) {
+    return {}
+  }
+
+  return {
+    path: isObject(remoteDefinition) ? remoteDefinition.path : remoteDefinition,
+    exportName: isObject(remoteDefinition) ? remoteDefinition.exportName : 'default',
+  }
+}
+
+export function useRemote({ path, exportName }) {
   const [Component, setComponent] = useState(null)
   const [status, setStatus] = useState('pending')
-
-  /**
-   * path的格式案例
-   *
-   * remote:[scope][module]
-   *
-   * eg: remote:glide_components/Input
-   *
-   * scope => glide_component
-   * module => ./Input
-   */
-  const [scope, ...parts] = path.replace('remote:', '').split('/')
-  const module = `./${parts.filter(Boolean).join('/')}`
 
   async function loadComponent() {
     if (!path) {
@@ -26,7 +25,7 @@ function useRemote({ path, exportName }) {
     }
     try {
       const Com = lazy(() =>
-        loadRemoteModule(scope, module).then((m) => {
+        loadRemote(path).then((m) => {
           return { default: m[exportName] }
         }),
       )
@@ -44,5 +43,3 @@ function useRemote({ path, exportName }) {
 
   return { Component, status }
 }
-
-export default useRemote

@@ -1,4 +1,4 @@
 import Remote from './Remote'
-import useParseRemote from './useParseRemote'
+import loadRemote from './loadRemote'
 
-export { Remote, useParseRemote }
+export { Remote, loadRemote }
