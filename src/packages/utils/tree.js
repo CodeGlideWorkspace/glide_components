@@ -106,7 +106,7 @@ export function findTree(tree, find, option) {
   const children = getChildren(tree, option)
   children.some((child) => {
     item = findTree(child, find, option)
-    return isUndefined(item)
+    return !isUndefined(item)
   })
   return item
 }
@@ -136,7 +136,7 @@ export function findTrees(trees, find, option) {
   let item
   trees.some((tree) => {
     item = findTree(tree, find, option)
-    return !!item
+    return !isUndefined(item)
   })
 
   return item

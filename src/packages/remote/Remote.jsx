@@ -1,9 +1,9 @@
-import React, { Suspense } from 'react'
+import React, { Suspense, forwardRef } from 'react'
 import propTypes from 'prop-types'
 
 import { useRemote, parsePath } from './useRemote'
 
-function Remote({ $$path, ...props }) {
+const Remote = forwardRef(function ({ $$path, children, ...props }, ref) {
   const { Component, status } = useRemote(parsePath($$path))
 
   function renderComponent() {
@@ -12,12 +12,25 @@ function Remote({ $$path, ...props }) {
       return '组件加载失败'
     }
 
-    return Component ? <Component {...props} /> : null
+    if (!Component) {
+      return null
+    }
+
+    const refs = {}
+    if (ref) {
+      refs.ref = ref
+    }
+
+    return (
+      <Component {...refs} {...props}>
+        {children}
+      </Component>
+    )
   }
 
   // TODO 优化loading显示效果
   return <Suspense fallback="loading">{renderComponent()}</Suspense>
-}
+})
 
 Remote.propTypes = {
   /**

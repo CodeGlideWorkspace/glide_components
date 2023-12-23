@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import propTypes from 'prop-types'
 import { Select as ASelect } from 'antd'
 
@@ -6,10 +6,10 @@ import useSelect from './useSelect'
 
 import './Select.module.less'
 
-function Select(props) {
-  const { props: aProps, ref: aRef } = useSelect(props)
+const Select = forwardRef(function (props, ref) {
+  const { props: aProps, ref: aRef } = useSelect(props, ref)
   return <ASelect ref={aRef} {...aProps} />
-}
+})
 
 Select.propTypes = {
   /**

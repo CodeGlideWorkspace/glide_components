@@ -64,8 +64,14 @@ export class FormManage {
   /**
    * 验证表单
    */
-  validate() {
-    return this.form.validateFields()
+  validate(nameList, option) {
+    return this.form.validateFields(nameList, option).catch((e) => {
+      if (e?.errorFields?.length) {
+        throw e
+      }
+
+      return e.values
+    })
   }
 }
 

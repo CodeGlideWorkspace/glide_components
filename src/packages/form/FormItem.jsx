@@ -34,7 +34,13 @@ FormItem.propTypes = {
   /**
    * 设置依赖字段
    */
-  dependencies: propTypes.arrayOf(propTypes.string),
+  dependencies: propTypes.arrayOf(
+    propTypes.oneOfType([
+      propTypes.string,
+      propTypes.number,
+      propTypes.arrayOf(propTypes.oneOfType([propTypes.string, propTypes.number])),
+    ]),
+  ),
 
   /**
    * 表单项描述信息

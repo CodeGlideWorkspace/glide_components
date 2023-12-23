@@ -24,8 +24,8 @@ export default function useAForm({
     onSubmit(values)
   }
 
-  function onValuesChange(_, values) {
-    onChange(values)
+  function onValuesChange(changedValues, values) {
+    onChange(changedValues, values)
   }
 
   return {

@@ -1,13 +1,13 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import { Switch as ASwitch } from 'antd'
 import propTypes from 'prop-types'
 
 import useSwitch from './useSwitch'
 
-function Switch(props) {
-  const { props: aProps } = useSwitch(props)
-  return <ASwitch {...aProps} />
-}
+const Switch = forwardRef(function (props, ref) {
+  const { props: aProps, ref: aRef } = useSwitch(props)
+  return <ASwitch ref={aRef} {...aProps} />
+})
 
 Switch.defaultProps = {
   onChange() {},
