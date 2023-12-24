@@ -19,6 +19,13 @@ Number.defaultProps = {
 
 Number.propTypes = {
   /**
+   * 指定样式
+   */
+  style: propTypes.object,
+
+  className: propTypes.string,
+
+  /**
    * 前缀内容
    */
   prefix: propTypes.element,
@@ -79,14 +86,19 @@ Number.propTypes = {
   step: propTypes.number,
 
   /**
-   * 样式
-   */
-  style: propTypes.object,
-
-  /**
    * 点击上下箭头的回调函数
    */
   onStep: propTypes.func,
+
+  /**
+   * 失焦事件
+   */
+  onBlur: propTypes.func,
+
+  /**
+   * 聚焦事件
+   */
+  onFocus: propTypes.func,
 
   /**
    * 值变更事件
