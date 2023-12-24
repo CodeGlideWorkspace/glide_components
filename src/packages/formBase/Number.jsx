@@ -11,6 +11,7 @@ const Number = forwardRef(function Number(props, ref) {
 })
 
 Number.defaultProps = {
+  placeholder: '请输入',
   onChange() {},
   onStep() {},
   onEnter() {},

@@ -11,6 +11,10 @@ const Select = forwardRef(function (props, ref) {
   return <ASelect ref={aRef} {...aProps} />
 })
 
+Select.defaultProps = {
+  placeholder: '请选择',
+}
+
 Select.propTypes = {
   /**
    * 指定样式

@@ -19,6 +19,7 @@ const Input = forwardRef(function Input(props, ref) {
 })
 
 Input.defaultProps = {
+  placeholder: '请输入',
   onChange() {},
   onEnter() {},
 }

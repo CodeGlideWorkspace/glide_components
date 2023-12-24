@@ -11,6 +11,8 @@ function Collapse(props) {
 
 Collapse.defaultProps = {
   bordered: true,
+  collapsible: true,
+  mode: 'header',
 }
 
 Collapse.propTypes = {
@@ -31,6 +33,16 @@ Collapse.propTypes = {
     propTypes.number,
     propTypes.arrayOf(propTypes.oneOfType([propTypes.string, propTypes.number])),
   ]),
+
+  /**
+   * 面板是否可折叠
+   */
+  collapsible: propTypes.bool,
+
+  /**
+   * 折叠模式
+   */
+  mode: propTypes.oneOf(['header', 'icon']),
 
   /**
    * 是否有边框

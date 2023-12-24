@@ -6,6 +6,8 @@ export default function useCollapse({
   defaultValue,
   destroyInactivePanel,
   ghost,
+  collapsible,
+  mode,
   bordered,
   children,
   onChange,
@@ -22,6 +24,7 @@ export default function useCollapse({
       extra: child.props.action,
       style: child.props.style,
       className: child.props.className,
+      showArrow: collapsible,
       children: child,
     })
   })
@@ -39,6 +42,7 @@ export default function useCollapse({
       destroyInactivePanel,
       onChange,
       expandIcon,
+      collapsible: collapsible ? mode : 'icon',
       items,
     },
   }
