@@ -1,4 +1,4 @@
-import { Col } from '../col'
-import { Row } from '../row'
+import Col from './Col'
+import Row from './Row'
 
 export { Col, Row }
