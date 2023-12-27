@@ -10,6 +10,7 @@ import {
   MinusSquareOutlined,
   PlusOutlined,
   MinusOutlined,
+  ApartmentOutlined,
 } from '@ant-design/icons'
 
 export {
@@ -24,4 +25,5 @@ export {
   MinusSquareOutlined,
   PlusOutlined,
   MinusOutlined,
+  ApartmentOutlined,
 }

@@ -72,7 +72,7 @@ export function createStore(store, name) {
 /**
  * 创建快速选择器
  *
- * @param {*} zStore zustand存储对象函数
+ * @param {Object} zStore zustand存储对象函数
  * @returns {Hook}
  */
 export function withSelector(zStore) {

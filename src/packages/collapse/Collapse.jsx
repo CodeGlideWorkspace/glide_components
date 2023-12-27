@@ -17,6 +17,13 @@ Collapse.defaultProps = {
 
 Collapse.propTypes = {
   /**
+   * 指定样式
+   */
+  style: propTypes.object,
+
+  className: propTypes.string,
+
+  /**
    * 设置展开的面板
    */
   value: propTypes.oneOfType([

@@ -3,6 +3,8 @@ import { CaretRightOutlined } from '@ant-design/icons'
 
 export default function useCollapse({
   value,
+  className,
+  style,
   defaultValue,
   destroyInactivePanel,
   ghost,
@@ -35,6 +37,8 @@ export default function useCollapse({
 
   return {
     props: {
+      className,
+      style,
       activeKey: value,
       bordered,
       ghost,
