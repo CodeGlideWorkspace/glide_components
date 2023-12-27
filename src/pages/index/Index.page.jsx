@@ -7,8 +7,7 @@
 import React from 'react'
 
 import styles from './Index.module.css'
-import { Col } from '@/packages/col'
-import { Row } from '@/packages/row'
+import { Col, Row } from '@/packages/grid'
 import { Module } from '@/packages/module'
 import { DndProvider } from '@/packages/dnd'
 
