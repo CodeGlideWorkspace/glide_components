@@ -1,3 +1,5 @@
+import isEqual from 'lodash.isequal'
+
 function check(data, type) {
   return Object.prototype.toString.call(data) === type
 }
@@ -46,3 +48,5 @@ export function isValuable(data) {
 export function isFalse(data) {
   return isBoolean(data) && !data
 }
+
+export { isEqual }

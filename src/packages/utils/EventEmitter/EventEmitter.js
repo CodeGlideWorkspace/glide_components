@@ -1,5 +1,5 @@
-import { isFunction, isString, uuid } from 'remote:glide_components/utils'
-
+import { isFunction, isString } from '../is'
+import { uuid } from '../tool'
 import EventEngineAbstract from './EventEngineAbstract'
 import Event from './Event'
 
@@ -7,11 +7,11 @@ class EventEmitter {
   /**
    * 存储事件句柄
    *
-   * @type {Object<{ [eventName]: Array[{ eventId, Engine, event }] }>}
+   * @type {Object<{ [eventName]: Array[{ eventId, engine, event }] }>}
    * {
    *  [EVENT_NAME]: [{
    *    eventId: String,
-   *    Engine: EventEngine,
+   *    engine: EventEngine,
    *    event: Function,
    *  }]
    * }
@@ -21,25 +21,25 @@ class EventEmitter {
   /**
    * 默认事件引擎
    */
-  Engine = Event
+  engine = new Event()
 
-  constructor(Engine) {
-    if (Engine instanceof EventEngineAbstract) {
-      this.Engine = Engine
+  constructor(engine) {
+    if (engine instanceof EventEngineAbstract) {
+      this.engine = engine
     }
   }
 
-  getEngine(Engine) {
-    if (Engine instanceof EventEngineAbstract) {
-      return Engine
+  getEngine(engine) {
+    if (engine instanceof EventEngineAbstract) {
+      return engine
     }
 
-    return this.Engine
+    return this.engine
   }
 
-  setEngine(Engine) {
-    if (Engine instanceof EventEngineAbstract) {
-      this.Engine = Engine
+  setEngine(engine) {
+    if (engine instanceof EventEngineAbstract) {
+      this.engine = engine
     }
   }
 
@@ -48,11 +48,11 @@ class EventEmitter {
    *
    * @param {String} name 事件名称
    * @param {Function} event 事件句柄
-   * @param {?EventEngine} EventEngine 可选，注册使用的事件引擎
+   * @param {?EventEngine} eventEngine 可选，注册使用的事件引擎
    *
    * @returns {String} eventId 可用于注销事件
    */
-  on(name, event, EventEngine) {
+  on(name, event, eventEngine) {
     if (!isString(name)) {
       return
     }
@@ -69,7 +69,7 @@ class EventEmitter {
     this.events[name].push({
       eventId,
       event,
-      Engine: this.getEngine(EventEngine),
+      engine: this.getEngine(eventEngine),
     })
 
     return eventId
@@ -80,11 +80,11 @@ class EventEmitter {
    *
    * @param {String} name 事件名称
    * @param {Function | String} eventOrEventId 事件句柄或事件id
-   * @param {?EventEngine} EventEngine 可选，传递时仅注销对应事件引擎的事件
+   * @param {?EventEngine} eventEngine 可选，传递时仅注销对应事件引擎的事件
    *
    * @returns {Boolean} 是否注销成功，不存在时返回注销失败
    */
-  off(name, eventOrEventId, EventEngine) {
+  off(name, eventOrEventId, eventEngine) {
     if (!isString(name)) {
       return
     }
@@ -97,9 +97,9 @@ class EventEmitter {
       return false
     }
 
-    const Engine = this.getEngine(EventEngine)
+    const engine = this.getEngine(eventEngine)
     const events = this.events[name].filter((item) => {
-      if (item.Engine !== Engine) {
+      if (item.engine !== engine) {
         return false
       }
 
@@ -120,43 +120,43 @@ class EventEmitter {
    * 清空事件
    *
    * @param {?String} name 可选，需要清理的事件名称，不传时清理所有事件
-   * @param {?EventEngine} EventEngine 可选，传递时仅清理对应事件引擎的事件
+   * @param {?EventEngine} eventEngine 可选，传递时仅清理对应事件引擎的事件
    *
    * @returns {Void}
    */
-  clear(name, EventEngine) {
-    const Engine = EventEngine instanceof EventEngineAbstract ? EventEngine : undefined
+  clear(name, eventEngine) {
+    const engine = eventEngine instanceof EventEngineAbstract ? eventEngine : undefined
 
-    if (!name && !Engine) {
+    if (!name && !engine) {
       this.events = {}
       return
     }
 
     if (!name) {
       Object.keys(this.events).forEach((eventName) => {
-        this.events[eventName] = this.events[eventName].filter((item) => item.Engine !== Engine)
+        this.events[eventName] = this.events[eventName].filter((item) => item.engine !== engine)
       })
       return
     }
 
-    if (!Engine) {
+    if (!engine) {
       delete this.events[name]
       return
     }
 
-    this.events[name] = this.events[name].filter((item) => item.Engine !== Engine)
+    this.events[name] = this.events[name].filter((item) => item.engine !== engine)
   }
 
   /**
    * 触发事件
    *
    * @param {String} name 事件名称
-   * @param {?EventEngine} 事件使用的引擎，不传时使用默认引擎
+   * @param {?EventEngine} eventEngine 事件使用的引擎，不传时使用默认引擎
    * @param {...any} params 事件参数
    *
    * @returns {Any}
    */
-  emit(name, EventEngine, ...params) {
+  emit(name, eventEngine, ...params) {
     if (!isString(name)) {
       return
     }
@@ -166,16 +166,13 @@ class EventEmitter {
       return
     }
 
-    const CurrentEventEngine = this.getEngine(EventEngine)
-    if (!(EventEngine instanceof EventEngineAbstract)) {
-      params.unshift(EventEngine)
+    const engine = this.getEngine(eventEngine)
+    if (!(eventEngine instanceof EventEngineAbstract)) {
+      params.unshift(eventEngine)
     }
 
-    const engineEvents = events.filter((item) => item.Engine === CurrentEventEngine).map((item) => item.event)
-    const engine = new CurrentEventEngine()
-    engine.setEvents(engineEvents)
-
-    return engine.emit(...params)
+    const engineEvents = events.filter((item) => item.engine === engine).map((item) => item.event)
+    return engine.emit(engineEvents, ...params)
   }
 }
 

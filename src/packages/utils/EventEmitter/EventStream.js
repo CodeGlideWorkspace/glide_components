@@ -4,16 +4,17 @@ class EventStream extends EventEngineAbstract {
   /**
    * 触发事件流
    *
+   * @param {Array<Function>} events 事件列表
    * @param {Any} params 事件参数
    *
    * @returns {Any}
    */
-  emit(params) {
-    if (!this.events.length) {
+  emit(events = [], params) {
+    if (!events.length) {
       return
     }
 
-    return this.events.reduce((result, event) => {
+    return events.reduce((result, event) => {
       return event(params, result)
     }, undefined)
   }

@@ -50,7 +50,7 @@ export function eachTree(tree, each, option) {
 
   each(tree)
   const children = getChildren(tree, option)
-  children.forEach((child) => eachTree(child, each, option))
+  eachTrees(children, each, option)
 }
 
 /**
@@ -72,7 +72,7 @@ export function eachTree(tree, each, option) {
  */
 export function eachTrees(trees, each, option) {
   if (!isArray(trees)) return trees
-  return trees.forEach((tree) => eachTree(tree, each, option))
+  trees.forEach((tree) => eachTree(tree, each, option))
 }
 
 /**
@@ -102,13 +102,8 @@ export function findTree(tree, find, option) {
     return tree
   }
 
-  let item
   const children = getChildren(tree, option)
-  children.some((child) => {
-    item = findTree(child, find, option)
-    return !isUndefined(item)
-  })
-  return item
+  return findTrees(children, find, option)
 }
 
 /**
@@ -170,9 +165,7 @@ export function reduceTree(tree, reduce, initialValue, option) {
 
   const nextValue = reduce(initialValue, tree)
   const children = getChildren(tree, option)
-  return children.reduce((result, child) => {
-    return reduceTree(child, reduce, result, option)
-  }, nextValue)
+  return reduceTrees(children, reduce, nextValue, option)
 }
 
 /**
@@ -227,33 +220,27 @@ export function reduceTrees(trees, reduce, initialValue, option) {
  */
 export function mapTree(tree, mapper, option = {}) {
   if (!tree) {
-    return tree
+    return
   }
 
   const data = mapper(tree)
-
-  function mapChildren(children) {
-    const oldChildren = isArray(children) ? children : []
-    const newChildren = oldChildren.map((child) => mapTree(child, mapper, option))
-    return newChildren
-  }
 
   const { childrenKey = 'children', slotKey = 'slots' } = option
 
   // 遍历多个插槽节点
   if (isObject(tree[slotKey])) {
     Object.keys(tree[slotKey]).forEach((slotName) => {
-      data[slotKey][slotName] = mapChildren(tree[slotKey][slotName])
+      data[slotKey][slotName] = mapTrees(tree[slotKey][slotName], mapper, option)
     })
   }
 
   // 遍历单个插槽节点
   if (isArray(tree[slotKey])) {
-    data[slotKey] = mapChildren(tree[slotKey])
+    data[slotKey] = mapTrees(tree[slotKey])
   }
 
   // 遍历子节点
-  data[childrenKey] = mapChildren(tree[childrenKey])
+  data[childrenKey] = mapTrees(tree[childrenKey])
 
   return data
 }
@@ -274,13 +261,95 @@ export function mapTree(tree, mapper, option = {}) {
  *
  * const trees = [{ id: 1, children: [{ id: 1.1 }, { id: 1.2 }] }, { id: 2 }]
  * const newTrees = mapTrees(trees, (child) => {
- *  return return { ...child, flag: true }
+ *  return { ...child, flag: true }
  * }, {})
  */
 export function mapTrees(trees, mapper, option) {
   if (!isArray(trees)) {
-    return trees
+    return []
   }
 
   return trees.map((tree) => mapTree(tree, mapper, option))
+}
+
+/**
+ * 树形结构过滤方法
+ * filterTree
+ *
+ * @param {TreeNode} tree 树形根节点
+ * @param {Function} filter 过滤回调函数
+ * @param {Object} option
+ * @param {String} option.childrenKey 子节点的键名，默认为'children'
+ * @param {String} option.slotKey 其他子节点容器名，默认为'slots'
+ *
+ * @returns {Any} 过滤完成的结果
+ *
+ * example:
+ *
+ * const tree = { id: 1, children: [{ id: 2 }, { id: 3 }] }
+ * const newTree = filter(tree, (child) => {
+ *  return child.id === 2
+ * })
+ */
+export function filterTree(tree, filter, option = {}) {
+  if (!tree) {
+    return
+  }
+
+  let isMatched = filter(tree)
+
+  const { childrenKey = 'children', slotKey = 'slots' } = option
+  // 遍历多个插槽节点
+  if (isObject(tree[slotKey])) {
+    Object.keys(tree[slotKey]).forEach((slotName) => {
+      tree[slotKey][slotName] = filterTrees(tree[slotKey][slotName], filter, option)
+      isMatched = isMatched || !!tree[slotKey][slotName]?.length
+    })
+  }
+
+  // 遍历单个插槽节点
+  if (isArray(tree[slotKey])) {
+    tree[slotKey] = filterTrees(tree[slotKey], filter, option)
+    isMatched = isMatched || !!tree[slotKey]?.length
+  }
+
+  // 遍历子节点
+  tree[childrenKey] = filterTrees(tree[childrenKey], filter, option)
+  isMatched = isMatched || !!tree[slotKey]?.length
+
+  return isMatched ? tree : undefined
+}
+
+/**
+ * 树形批量过滤方法
+ * filterTrees
+ *
+ * @param {TreeNode[]} trees 树形根节点数组
+ * @param {Function} filter 过滤回调函数
+ * @param {Object} option
+ * @param {String} option.childrenKey 子节点的键名，默认为'children'
+ * @param {String} option.slotKey 其他子节点容器名，默认为'slots'
+ *
+ * @returns {Any} 过滤完成的结果
+ *
+ * example:
+ *
+ * const trees = [{ id: 1, children: [{ id: 1.1 }, { id: 1.2 }] }, { id: 2 }]
+ * const newTrees = filterTrees(trees, (child) => {
+ *  return child.id === 1.1
+ * }, {})
+ */
+export function filterTrees(trees, filter, option) {
+  if (!isArray(trees)) {
+    return []
+  }
+
+  return trees.reduce((result, tree) => {
+    const node = filterTree(tree, filter, option)
+    if (node) {
+      result.push(node)
+    }
+
+    return result
+  }, [])
 }

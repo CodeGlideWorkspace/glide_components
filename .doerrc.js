@@ -15,7 +15,6 @@ module.exports = {
     './utils': './src/packages/utils/index.js',
     './hooks': './src/packages/hooks/index.js',
     './store': './src/packages/store/index.js',
-    './EventEmitter': './src/packages/EventEmitter/index.js',
     './Base': './src/packages/base/index.js',
     './Icon': './src/packages/icon/index.js',
     './ConfigProvider': './src/packages/configProvider/index.js',

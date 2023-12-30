@@ -24,6 +24,7 @@
     "beautiful-react-hooks": "^5.0.1",
     "classnames": "^2.3.2",
     "immer": "^10.0.3",
+    "lodash.isequal": "^4.5.0",
     "lodash.merge": "^4.6.2",
     "prop-types": "^15.8.1",
     "react-dnd": "^16.0.1",
