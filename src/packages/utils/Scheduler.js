@@ -41,6 +41,11 @@ class Scheduler {
   result = {}
 
   /**
+   * 是否已经准备就绪
+   */
+  isReady = false
+
+  /**
    * 孤儿节点
    *
    * @type {Object<{ [parentNodeName]: Array<Node> }>}
@@ -235,6 +240,18 @@ class Scheduler {
     this.create(name, dependencies)
     this.eventEmitter.on(name, handle)
 
+    if (!this.isReady) {
+      return () => {
+        this.unsubscribe(name)
+      }
+    }
+
+    // 添加节点时，如果已经时ready状态，则直接执行
+    const node = findTrees(this.nodes, (item) => item.name === name)
+    if (node) {
+      this.exec([node], {})
+    }
+
     return () => {
       this.unsubscribe(name)
     }
@@ -254,6 +271,17 @@ class Scheduler {
       return isRemoved
     }
     this.create(name, dependencies)
+
+    if (!this.isReady) {
+      return isRemoved
+    }
+
+    // 更新节点时，如果已经时ready状态，则直接执行
+    const node = findTrees(this.nodes, (item) => item.name === name)
+    if (node) {
+      this.exec([node], {})
+    }
+
     return isRemoved
   }
 
@@ -302,6 +330,7 @@ class Scheduler {
 
     if (!itemName) {
       this.result = {}
+      this.isReady = true
       await this.exec(this.nodes, data)
       return
     }
