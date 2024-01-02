@@ -38,7 +38,7 @@ function getChildren(tree, option = {}) {
  *
  * @returns {Void}
  *
- * example:
+ * @example
  *
  * const tree = { id: 1, children: [{ id: 2 }, { id: 3 }] }
  * eachTree(tree, (node) => console.log(node.id))
@@ -65,7 +65,7 @@ export function eachTree(tree, each, option) {
  *
  * @returns {Void}
  *
- * example:
+ * @example
  *
  * const trees = [{ id: 1, children: [{ id: 1.1 }, { id: 1.2 }] }, { id: 2 }]
  * eachTrees(trees, (node) => console.log(node.id))
@@ -87,7 +87,7 @@ export function eachTrees(trees, each, option) {
  *
  * @returns {TreeNode | Undefined}
  *
- * example:
+ * @example
  *
  * const tree = { id: 1, children: [{ id: 2 }, { id: 3 }] }
  * const findItem = findTree(tree, (node) => node.id === 3)
@@ -118,7 +118,7 @@ export function findTree(tree, find, option) {
  *
  * @returns {TreeNode}
  *
- * example:
+ * @example
  *
  * const trees = [{ id: 1, children: [{ id: 1.1 }, { id: 1.2 }] }, { id: 2 }]
  * const findItem = findTrees(trees, (node) => node.id === 2)
@@ -150,7 +150,7 @@ export function findTrees(trees, find, option) {
  *
  * @returns {Any} 组装完成的结果
  *
- * example:
+ * @example
  *
  * const tree = { id: 1, children: [{ id: 2 }, { id: 3 }] }
  * const value = reduceTree(tree, (result, child) => {
@@ -181,7 +181,7 @@ export function reduceTree(tree, reduce, initialValue, option) {
  *
  * @returns {Any} 组装完成的结果
  *
- * example:
+ * @example
  *
  * const trees = [{ id: 1, children: [{ id: 1.1 }, { id: 1.2 }] }, { id: 2 }]
  * const value = reduceTrees(trees, (result, child) => {
@@ -211,7 +211,7 @@ export function reduceTrees(trees, reduce, initialValue, option) {
  *
  * @returns {Any} 重组完成的结果
  *
- * example:
+ * @example
  *
  * const tree = { id: 1, children: [{ id: 2 }, { id: 3 }] }
  * const newTree = mapTree(tree, (child) => {
@@ -257,7 +257,7 @@ export function mapTree(tree, mapper, option = {}) {
  *
  * @returns {Any} 重组完成的结果
  *
- * example:
+ * @example
  *
  * const trees = [{ id: 1, children: [{ id: 1.1 }, { id: 1.2 }] }, { id: 2 }]
  * const newTrees = mapTrees(trees, (child) => {
@@ -284,7 +284,7 @@ export function mapTrees(trees, mapper, option) {
  *
  * @returns {Any} 过滤完成的结果
  *
- * example:
+ * @example
  *
  * const tree = { id: 1, children: [{ id: 2 }, { id: 3 }] }
  * const newTree = filter(tree, (child) => {
@@ -332,7 +332,7 @@ export function filterTree(tree, filter, option = {}) {
  *
  * @returns {Any} 过滤完成的结果
  *
- * example:
+ * @example
  *
  * const trees = [{ id: 1, children: [{ id: 1.1 }, { id: 1.2 }] }, { id: 2 }]
  * const newTrees = filterTrees(trees, (child) => {

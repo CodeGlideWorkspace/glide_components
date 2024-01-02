@@ -13,6 +13,7 @@ module.exports = {
   exposes: {
     './style': './src/packages/style/index.js',
     './utils': './src/packages/utils/index.js',
+    './service': './src/packages/service/index.js',
     './hooks': './src/packages/hooks/index.js',
     './store': './src/packages/store/index.js',
     './Base': './src/packages/base/index.js',
