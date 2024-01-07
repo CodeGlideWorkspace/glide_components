@@ -11,6 +11,9 @@ import {
   PlusOutlined,
   MinusOutlined,
   ApartmentOutlined,
+  AppstoreAddOutlined,
+  ClusterOutlined,
+  QuestionCircleOutlined,
 } from '@ant-design/icons'
 
 export {
@@ -26,4 +29,7 @@ export {
   PlusOutlined,
   MinusOutlined,
   ApartmentOutlined,
+  AppstoreAddOutlined,
+  ClusterOutlined,
+  QuestionCircleOutlined,
 }

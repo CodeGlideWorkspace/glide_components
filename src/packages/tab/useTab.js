@@ -6,7 +6,7 @@ export default function useTab({
   className,
   centered,
   action,
-  destroyInactivePanel,
+  destroyInactive,
   onChange,
   children,
 }) {
@@ -31,7 +31,7 @@ export default function useTab({
       className,
       centered,
       tabBarExtraContent: action,
-      destroyInactiveTabPane: destroyInactivePanel,
+      destroyInactiveTabPane: destroyInactive,
       items,
       onChange,
     },

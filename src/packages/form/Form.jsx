@@ -13,6 +13,7 @@ Form.defaultProps = {
   layout: 'vertical',
   labelAlign: 'left',
   onChange() {},
+  onFieldsChange() {},
   onSubmit() {},
 }
 
@@ -60,6 +61,11 @@ Form.propTypes = {
    * (values: object) => void
    */
   onChange: propTypes.func,
+
+  /**
+   * 表单字段改变事件
+   */
+  onFieldsChange: propTypes.func,
 }
 
 export default Form

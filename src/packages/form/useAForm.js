@@ -11,6 +11,7 @@ export default function useAForm({
   wrapperCol,
   onSubmit,
   onChange,
+  onFieldsChange,
 }) {
   const userFormManage = useRef(form)
   const sysFormManage = useForm()
@@ -42,6 +43,7 @@ export default function useAForm({
       scrollToFirstError: true,
       onFinish,
       onValuesChange,
+      onFieldsChange,
     },
   }
 }

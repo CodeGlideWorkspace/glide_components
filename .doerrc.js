@@ -29,6 +29,8 @@ module.exports = {
     './Dnd': './src/packages/dnd/index.js',
     './Grid': './src/packages/grid/index.js',
     './Button': './src/packages/button/index.js',
+    './Tooltip': './src/packages/tooltip/index.js',
+    './Popover': './src/packages/popover/index.js',
   },
   shared: {},
 

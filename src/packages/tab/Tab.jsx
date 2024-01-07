@@ -39,7 +39,7 @@ Tab.propTypes = {
   /**
    * 面板隐藏时卸载组件
    */
-  destroyInactivePanel: propTypes.bool,
+  destroyInactive: propTypes.bool,
 
   /**
    * 页签切换回调函数
