@@ -39,12 +39,22 @@ function calcPosition(monitor, dropRef, depth) {
   return position
 }
 
-function Droppable({ children, onDrop, state = {}, depth, style, accept }) {
-  const [{ isOver, canDrop, dropPosition }, drop] = useDrop({
-    accept,
-    drop(item, monitor) {
+function Droppable({ children, onDrop, state = {}, item, depth, style, canDrop }) {
+  // console.log('Droppable', node, component)
+  const [{ isOver, canDroppable }, drop] = useDrop({
+    accept: 'component',
+    canDrop(source) {
+      const target = item
+      const result = canDrop(source, target)
+      return result
+    },
+    drop(source, monitor) {
+      if (monitor.didDrop()) {
+        return
+      }
       state.position = calcPosition(monitor, dropRef, depth)
-      onDrop(item, monitor, state)
+      const target = item
+      onDrop(source, target, state, monitor)
     },
     collect: (monitor) => {
       const isOver = monitor.isOver()
@@ -55,23 +65,23 @@ function Droppable({ children, onDrop, state = {}, depth, style, accept }) {
         const position = calcPosition(monitor, dropRef, depth)
         return `插入位置：${position}`
       }
-      return { isOver, canDrop: monitor.canDrop(), dropPosition: dropPosition() }
+      return { isOver, canDroppable: monitor.canDrop(), dropPosition: dropPosition() }
     },
   })
 
   const isActive = isOver && canDrop
-  let backgroundColor = 'rgba(0,0,0,0.3)'
+  let backgroundColor = 'transparent'
   if (isActive) {
-    backgroundColor = 'rgba(0,0,0,0.6)'
-  } else if (canDrop) {
-    backgroundColor = 'rgba(0,0,0,0.4)'
+    backgroundColor = 'rgba(0,0,0,0.3)'
+  } else if (canDroppable) {
+    backgroundColor = 'rgba(0,0,0,0.1)'
   }
   const dropRef = React.useRef(null)
   drop(dropRef)
 
   return (
     <div ref={dropRef} style={{ ...style, backgroundColor }} className={styles.droppable}>
-      {dropPosition}
+      {/* {dropPosition} */}
       {children}
     </div>
   )
