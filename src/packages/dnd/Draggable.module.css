@@ -3,6 +3,6 @@
 }
 
 .dragging {
-    background-color: #f3fafd;
+    /* background-color: #f3fafd; */
     cursor: grabbing;
 }
