@@ -1,8 +1,11 @@
 import { useRef } from 'react'
 import { Form } from 'antd'
+import { EventEmitter } from 'remote:glide_components/utils'
 
 export class FormManage {
   form = null
+
+  subscriber = new EventEmitter()
 
   constructor(form) {
     if (!form) {
@@ -45,6 +48,7 @@ export class FormManage {
    */
   setValue(name, value) {
     this.form.setFieldValue(name, value)
+    this.subscriber.emit('setValue', name, value)
   }
 
   /**
@@ -59,6 +63,7 @@ export class FormManage {
    */
   setValues(values) {
     this.form.setFieldsValue(values)
+    this.subscriber.emit('setValues', values)
   }
 
   /**
