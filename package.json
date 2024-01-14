@@ -26,6 +26,7 @@
     "immer": "^10.0.3",
     "lodash.isequal": "^4.5.0",
     "lodash.merge": "^4.6.2",
+    "monaco-editor": "^0.45.0",
     "prop-types": "^15.8.1",
     "react-dnd": "^16.0.1",
     "react-dnd-html5-backend": "^16.0.1",
@@ -40,6 +41,7 @@
     "@doerjs/plugin-less": "0.0.9",
     "@doerjs/prettier-config": "0.0.8",
     "husky": "8.0.3",
-    "lint-staged": "15.0.2"
+    "lint-staged": "15.0.2",
+    "monaco-editor-webpack-plugin": "^7.1.0"
   }
 }

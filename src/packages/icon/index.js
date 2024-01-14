@@ -14,6 +14,7 @@ import {
   AppstoreAddOutlined,
   ClusterOutlined,
   QuestionCircleOutlined,
+  CodeOutlined,
 } from '@ant-design/icons'
 
 export {
@@ -32,4 +33,5 @@ export {
   AppstoreAddOutlined,
   ClusterOutlined,
   QuestionCircleOutlined,
+  CodeOutlined,
 }

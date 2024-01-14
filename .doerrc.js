@@ -16,6 +16,7 @@ module.exports = {
     './service': './src/packages/service/index.js',
     './hooks': './src/packages/hooks/index.js',
     './store': './src/packages/store/index.js',
+    './api': './src/packages/api/index.js',
     './Base': './src/packages/base/index.js',
     './Icon': './src/packages/icon/index.js',
     './ConfigProvider': './src/packages/configProvider/index.js',
@@ -28,16 +29,24 @@ module.exports = {
     './Tab': './src/packages/tab/index.js',
     './Dnd': './src/packages/dnd/index.js',
     './Grid': './src/packages/grid/index.js',
-    './Button': './src/packages/button/index.js',
-    './Tooltip': './src/packages/tooltip/index.js',
     './Popover': './src/packages/popover/index.js',
+    './Editor': './src/packages/editor/index.js',
+    './Modal': './src/packages/modal/index.js',
   },
   shared: {},
 
   // 开启BrowserRouter模式
   browserHistory: false,
 
-  plugins: ['@doerjs/plugin-less'],
+  plugins: [
+    '@doerjs/plugin-less',
+    [
+      './plugin/monaco/index.js',
+      {
+        languages: ['javascript', 'json'],
+      },
+    ],
+  ],
 
   // 自定义<Suspense fallback={<Loading />}> loading组件
   // 布局加载和页面加载公用一个loading

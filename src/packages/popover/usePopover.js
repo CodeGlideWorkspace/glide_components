@@ -1,31 +1,13 @@
-export default function usePopover({
-  arrow,
-  background,
-  destroyInactive,
-  mouseEnterDelay,
-  mouseLeaveDelay,
-  placement,
-  trigger,
-  visible,
-  zIndex,
-  title,
-  content,
-  onChange,
-}) {
+import useTooltip from './useTooltip'
+
+export default function usePopover({ title, content, ...props }) {
+  const { props: aProps } = useTooltip(props)
+
   return {
     props: {
-      arrow,
-      color: background,
-      destroyTooltipOnHide: destroyInactive,
-      mouseEnterDelay,
-      mouseLeaveDelay,
-      placement,
-      trigger,
-      open: visible,
-      zIndex,
+      ...aProps,
       title,
       content,
-      onOpenChange: onChange,
     },
   }
 }
