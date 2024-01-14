@@ -1,9 +1,14 @@
 import React from 'react'
 import { Empty as AEmpty } from 'antd'
 import propTypes from 'prop-types'
+import { classNames } from 'remote:glide_components/utils'
 
-function Empty({ image, description }) {
-  return <AEmpty image={image} description={description} />
+import styles from './Empty.module.less'
+
+function Empty({ className, style, image, description }) {
+  return (
+    <AEmpty className={classNames(styles.empty, { className })} style={style} image={image} description={description} />
+  )
 }
 
 Empty.defaultProps = {
@@ -12,6 +17,9 @@ Empty.defaultProps = {
 }
 
 Empty.propTypes = {
+  className: propTypes.string,
+  style: propTypes.string,
+
   /**
    * 空状态的图片定义
    */

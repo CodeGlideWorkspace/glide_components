@@ -10,17 +10,19 @@ import styles from './Module.module.less'
 
 function Module(props) {
   const { token } = theme.useToken()
-
   const { props: aProps } = useModule(props)
+
+  const { head: headStyle, body: bodyStyle } = props.styles
+
   return (
     <ACard
       className={classNames(styles.module, props.className)}
-      headStyle={{ border: 'none', ...props.headStyle }}
+      headStyle={{ border: 'none', ...headStyle }}
       bodyStyle={{
         flex: '1 1 auto',
         overflow: 'auto',
         borderTop: `1px solid ${token.colorBorderSecondary}`,
-        ...props.bodyStyle,
+        ...bodyStyle,
       }}
       {...aProps}
     >
@@ -31,17 +33,17 @@ function Module(props) {
 
 Module.defaultProps = {
   bordered: false,
+  styles: {},
 }
 
 Module.propTypes = {
-  /**
-   * 指定样式
-   */
-  style: propTypes.object,
-  headStyle: propTypes.object,
-  bodyStyle: propTypes.object,
-
   className: propTypes.string,
+  style: propTypes.string,
+
+  styles: propTypes.exact({
+    head: propTypes.object,
+    body: propTypes.object,
+  }),
 
   /**
    * 卡片的标题
