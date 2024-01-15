@@ -1,6 +1,5 @@
 import { isArray, isString, isNumber } from 'remote:glide_components/utils'
 
-import RequestParserAbstract from './RequestParserAbstract'
 import JsonRequestParser from './JsonRequestParser'
 
 function toUppercaseWords(str) {
@@ -55,9 +54,10 @@ class Request {
   allowCredentials = ['same-origin', 'include', 'omit']
 
   // 存储解析器
-  static parser = new JsonRequestParser()
+  parser = null
 
-  constructor(url, option = {}) {
+  constructor(url, option = {}, parser = new JsonRequestParser()) {
+    this.parser = parser
     this.setMethod(option.method)
     this.setCredential(option.credentials)
     this.setHeaders(option.headers)
@@ -103,7 +103,7 @@ class Request {
     }
   }
 
-  setHeaders(headers) {
+  setHeaders(headers = {}) {
     const formatHeaders = Object.keys(headers).reduce((result, key) => {
       result[toUppercaseWords(key)] = result[key]
       return result
@@ -112,13 +112,11 @@ class Request {
     this.headers = this.parser.parseHeaders(this, formatHeaders)
   }
 
-  setParser(parser) {
-    if (parser instanceof RequestParserAbstract) {
-      this.parser = parser
-    }
-  }
-
   setBody(params) {
+    if (['GET', 'DELETE'].includes(this.method)) {
+      return
+    }
+
     this.body = this.parser.parseBody(this, params)
   }
 }

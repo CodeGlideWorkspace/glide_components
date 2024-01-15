@@ -19,6 +19,17 @@ function checkSuccess(res) {
   return res
 }
 
+/**
+ * 请求JSON格式
+ *
+ * @param {String} url 请求地址, 支持restful风格参数
+ * @param {String} option.method 请求方法
+ * @param {String} option.credentials 是否携带cookies
+ * @param {Object} option.headers 请求头信息
+ * @param {Object} option.params 请求参数
+ *
+ * @returns
+ */
 export function request(url, option) {
   const request = new Request(url, option)
   return fetch(...request.getData())
@@ -29,9 +40,19 @@ export function request(url, option) {
     .then(checkSuccess)
 }
 
+/**
+ * 请求表单格式
+ *
+ * @param {String} url 请求地址, 支持restful风格参数
+ * @param {String} option.method 请求方法
+ * @param {String} option.credentials 是否携带cookies
+ * @param {Object} option.headers 请求头信息
+ * @param {Object} option.params 请求参数
+ *
+ * @returns
+ */
 export function requestForm(url, option) {
-  const request = new Request(url, option)
-  request.setParser(new FormRequestParser())
+  const request = new Request(url, option, new FormRequestParser())
   return fetch(...request.getData())
     .then((res) => {
       const response = new Response(res)
