@@ -34,6 +34,7 @@ function useSider({
   }
 
   return {
+    collapsed: currCollapsed,
     direction,
     props: {
       style,
