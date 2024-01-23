@@ -2,7 +2,7 @@ import React from 'react'
 import { useDrag } from 'react-dnd'
 
 import styles from './Draggable.module.css'
-function Draggable({ children, style, item, onDrag, canDrag }) {
+function Draggable({ children, style, item, onDrag, canDrag, ...rest }) {
   const type = 'component'
   const [{ isDragging }, drag] = useDrag({
     type,
@@ -19,9 +19,15 @@ function Draggable({ children, style, item, onDrag, canDrag }) {
     },
   })
   return (
-    <div ref={drag} style={{ ...style, opacity: isDragging ? 0.5 : 1 }} className={styles.draggable}>
+    <div ref={drag} style={{ ...style, opacity: isDragging ? 0.5 : 1 }} className={styles.draggable} {...rest}>
       {children}
     </div>
   )
 }
+
+Draggable.defaultProps = {
+  canDrag: () => true,
+  onDrag: () => {},
+}
+
 export default Draggable

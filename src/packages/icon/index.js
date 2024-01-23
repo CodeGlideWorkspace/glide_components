@@ -15,6 +15,11 @@ import {
   ClusterOutlined,
   QuestionCircleOutlined,
   CodeOutlined,
+  BranchesOutlined,
+  BlockOutlined,
+  FunctionOutlined,
+  UngroupOutlined,
+  SolutionOutlined,
 } from '@ant-design/icons'
 
 export {
@@ -34,4 +39,9 @@ export {
   ClusterOutlined,
   QuestionCircleOutlined,
   CodeOutlined,
+  BranchesOutlined,
+  BlockOutlined,
+  UngroupOutlined,
+  FunctionOutlined,
+  SolutionOutlined,
 }

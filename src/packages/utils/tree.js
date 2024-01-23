@@ -1,4 +1,4 @@
-import { isArray, isUndefined, isObject } from './is'
+import { isArray, isUndefined, isObject, isFunction } from './is'
 
 function getChildren(tree, option = {}) {
   const { childrenKey = 'children', slotKey = 'slots' } = option
@@ -35,6 +35,8 @@ function getChildren(tree, option = {}) {
  * @param {Object} option
  * @param {String} option.childrenKey 子节点的键名，默认为'children'
  * @param {String} option.slotKey 其他子节点容器名，默认为'slots'
+ * @param {Function} option.before 访问节点前
+ * @param {Function} option.after 访问节点后
  *
  * @returns {Void}
  *
@@ -48,9 +50,18 @@ export function eachTree(tree, each, option) {
     return
   }
 
+  if (isFunction(option?.before)) {
+    option.before(tree)
+  }
+
   each(tree)
+
   const children = getChildren(tree, option)
   eachTrees(children, each, option)
+
+  if (isFunction(option?.after)) {
+    option.after(tree)
+  }
 }
 
 /**
@@ -62,6 +73,8 @@ export function eachTree(tree, each, option) {
  * @param {Object} option
  * @param {String} option.childrenKey 子节点的键名，默认为'children'
  * @param {String} option.slotKey 其他子节点容器名，默认为'slots'
+ * @param {Function} option.before 访问节点前
+ * @param {Function} option.after 访问节点后
  *
  * @returns {Void}
  *
@@ -84,6 +97,8 @@ export function eachTrees(trees, each, option) {
  * @param {Object} option
  * @param {String} option.childrenKey 子节点的键名，默认为'children'
  * @param {String} option.slotKey 其他子节点容器名，默认为'slots'
+ * @param {Function} option.before 访问节点前
+ * @param {Function} option.after 访问节点后
  *
  * @returns {TreeNode | Undefined}
  *
@@ -97,13 +112,28 @@ export function findTree(tree, find, option) {
     return
   }
 
-  const isMatched = find(tree)
+  if (isFunction(option?.before)) {
+    option.before(tree)
+  }
+
+  let isMatched = find(tree)
+
   if (isMatched) {
+    if (isFunction(option?.after)) {
+      option.after(tree)
+    }
+
     return tree
   }
 
   const children = getChildren(tree, option)
-  return findTrees(children, find, option)
+  isMatched = findTrees(children, find, option)
+
+  if (isFunction(option?.after)) {
+    option.after(tree)
+  }
+
+  return isMatched
 }
 
 /**
@@ -115,6 +145,8 @@ export function findTree(tree, find, option) {
  * @param {Object} option
  * @param {String} option.childrenKey 子节点的键名，默认为'children'
  * @param {String} option.slotKey 其他子节点容器名，默认为'slots'
+ * @param {Function} option.before 访问节点前
+ * @param {Function} option.after 访问节点后
  *
  * @returns {TreeNode}
  *
@@ -147,6 +179,8 @@ export function findTrees(trees, find, option) {
  * @param {Object} option
  * @param {String} option.childrenKey 子节点的键名，默认为'children'
  * @param {String} option.slotKey 其他子节点容器名，默认为'slots'
+ * @param {Function} option.before 访问节点前
+ * @param {Function} option.after 访问节点后
  *
  * @returns {Any} 组装完成的结果
  *
@@ -158,14 +192,25 @@ export function findTrees(trees, find, option) {
  *  return result
  * }, {})
  */
-export function reduceTree(tree, reduce, initialValue, option) {
+export function reduceTree(tree, reduce, initialValue, option = {}) {
   if (!tree) {
     return initialValue
   }
 
-  const nextValue = reduce(initialValue, tree)
+  if (option?.before) {
+    option.before(tree)
+  }
+
+  let nextValue = reduce(initialValue, tree)
+
   const children = getChildren(tree, option)
-  return reduceTrees(children, reduce, nextValue, option)
+  nextValue = reduceTrees(children, reduce, nextValue, option)
+
+  if (option?.after) {
+    option.after(tree)
+  }
+
+  return nextValue
 }
 
 /**
@@ -178,6 +223,8 @@ export function reduceTree(tree, reduce, initialValue, option) {
  * @param {Object} option
  * @param {String} option.childrenKey 子节点的键名，默认为'children'
  * @param {String} option.slotKey 其他子节点容器名，默认为'slots'
+ * @param {Function} option.before 访问节点前
+ * @param {Function} option.after 访问节点后
  *
  * @returns {Any} 组装完成的结果
  *
@@ -208,6 +255,8 @@ export function reduceTrees(trees, reduce, initialValue, option) {
  * @param {Object} option
  * @param {String} option.childrenKey 子节点的键名，默认为'children'
  * @param {String} option.slotKey 其他子节点容器名，默认为'slots'
+ * @param {Function} option.before 访问节点前
+ * @param {Function} option.after 访问节点后
  *
  * @returns {Any} 重组完成的结果
  *
@@ -221,6 +270,10 @@ export function reduceTrees(trees, reduce, initialValue, option) {
 export function mapTree(tree, mapper, option = {}) {
   if (!tree) {
     return
+  }
+
+  if (isFunction(option?.before)) {
+    option.before(tree)
   }
 
   const data = mapper(tree)
@@ -242,6 +295,10 @@ export function mapTree(tree, mapper, option = {}) {
   // 遍历子节点
   data[childrenKey] = mapTrees(tree[childrenKey])
 
+  if (isFunction(option?.after)) {
+    option.after(tree)
+  }
+
   return data
 }
 
@@ -254,6 +311,8 @@ export function mapTree(tree, mapper, option = {}) {
  * @param {Object} option
  * @param {String} option.childrenKey 子节点的键名，默认为'children'
  * @param {String} option.slotKey 其他子节点容器名，默认为'slots'
+ * @param {Function} option.before 访问节点前
+ * @param {Function} option.after 访问节点后
  *
  * @returns {Any} 重组完成的结果
  *
@@ -281,6 +340,8 @@ export function mapTrees(trees, mapper, option) {
  * @param {Object} option
  * @param {String} option.childrenKey 子节点的键名，默认为'children'
  * @param {String} option.slotKey 其他子节点容器名，默认为'slots'
+ * @param {Function} option.before 访问节点前
+ * @param {Function} option.after 访问节点后
  *
  * @returns {Any} 过滤完成的结果
  *
@@ -294,6 +355,10 @@ export function mapTrees(trees, mapper, option) {
 export function filterTree(tree, filter, option = {}) {
   if (!tree) {
     return
+  }
+
+  if (isFunction(option?.before)) {
+    option.before(tree)
   }
 
   let isMatched = filter(tree)
@@ -317,6 +382,10 @@ export function filterTree(tree, filter, option = {}) {
   tree[childrenKey] = filterTrees(tree[childrenKey], filter, option)
   isMatched = isMatched || !!tree[slotKey]?.length
 
+  if (isFunction(option?.after)) {
+    option.after(tree)
+  }
+
   return isMatched ? tree : undefined
 }
 
@@ -329,6 +398,8 @@ export function filterTree(tree, filter, option = {}) {
  * @param {Object} option
  * @param {String} option.childrenKey 子节点的键名，默认为'children'
  * @param {String} option.slotKey 其他子节点容器名，默认为'slots'
+ * @param {Function} option.before 访问节点前
+ * @param {Function} option.after 访问节点后
  *
  * @returns {Any} 过滤完成的结果
  *

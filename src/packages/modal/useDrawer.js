@@ -43,7 +43,7 @@ export default function useDrawer({
   }
 
   function renderFooter() {
-    if (!action && !showCancel && !showConfirm) {
+    if (!showCancel && !showConfirm) {
       return null
     }
 
@@ -74,6 +74,7 @@ export default function useDrawer({
       footer: renderFooter(),
       getContainer,
       mask,
+      push: false,
       maskClosable,
       width: ['left', 'right'].includes(placement) ? size : undefined,
       height: ['top', 'bottom'].includes(placement) ? size : undefined,

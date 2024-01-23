@@ -32,6 +32,7 @@ module.exports = {
     './Popover': './src/packages/popover/index.js',
     './Editor': './src/packages/editor/index.js',
     './Modal': './src/packages/modal/index.js',
+    './Flow': './src/packages/flow/index.js',
   },
   shared: {},
 

@@ -39,8 +39,7 @@ function calcPosition(monitor, dropRef, depth) {
   return position
 }
 
-function Droppable({ children, onDrop, state = {}, item, depth, style, canDrop, onClick }) {
-  // console.log('Droppable', node, component)
+function Droppable({ children, onDrop, state = {}, item, depth, style, canDrop, onClick, ...rest }) {
   const [{ isOver, canDroppable }, drop] = useDrop({
     accept: 'component',
     canDrop(source) {
@@ -80,10 +79,15 @@ function Droppable({ children, onDrop, state = {}, item, depth, style, canDrop, 
   drop(dropRef)
 
   return (
-    <div ref={dropRef} style={{ ...style, backgroundColor }} className={styles.droppable} onClick={onClick}>
-      {/* {dropPosition} */}
+    <div ref={dropRef} style={{ ...style, backgroundColor }} className={styles.droppable} onClick={onClick} {...rest}>
       {children}
     </div>
   )
 }
+
+Droppable.defaultProps = {
+  onDrop: () => {},
+  canDrop: () => true,
+}
+
 export default Droppable

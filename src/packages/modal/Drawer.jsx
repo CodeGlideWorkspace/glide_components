@@ -19,6 +19,8 @@ Drawer.defaultProps = {
   placement: 'bottom',
   onShow: () => {},
   onHide: () => {},
+  onCancel: () => {},
+  onConfirm: () => {},
 }
 
 Drawer.propTypes = {
