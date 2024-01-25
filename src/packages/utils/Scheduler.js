@@ -1,6 +1,5 @@
 import { EventEmitter, EventAsyncStream } from './EventEmitter'
-import { findTrees, eachTrees, reduceTrees, filterTrees } from './tree'
-import { isString } from './is'
+import { findTrees, eachTrees, filterTrees } from './tree'
 
 class Node {
   // 节点名称
@@ -41,6 +40,11 @@ class Scheduler {
   result = {}
 
   /**
+   * 最后执行的任务名
+   */
+  lastedName = ''
+
+  /**
    * 是否已经准备就绪
    */
   isReady = false
@@ -67,27 +71,16 @@ class Scheduler {
     this.hidden[name] = true
   }
 
-  /**
-   * 获取依赖项参数
-   *
-   * @param {Object} context 上下文参数
-   *
-   * @returns {Object}
-   */
-  getParams(node, context) {
-    const params = reduceTrees(
-      this.nodes,
-      (result, item) => {
-        if (node.dependencies.includes(item.name)) {
-          return { ...result, ...this.result[item.name] }
-        }
+  getData(name) {
+    return this.result[name]
+  }
 
-        return result
-      },
-      context,
-    )
+  getResult() {
+    if (!this.lastedName) {
+      return
+    }
 
-    return params
+    return this.result[this.lastedName]
   }
 
   /**
@@ -158,11 +151,10 @@ class Scheduler {
    * 根据依赖关系执行节点
    *
    * @param {Array<Node>} nodes 待执行节点列表
-   * @param {Any} context 执行的上下文参数
    *
    * @returns {Promise<Void>}
    */
-  async exec(nodes, context) {
+  async exec(nodes) {
     // 访问记录
     const visited = {}
     // 获取待执行的节点
@@ -190,7 +182,8 @@ class Scheduler {
       needExecNodes = unReadyNodes
 
       const tasks = readyNodes.reduce((result, item) => {
-        const task = Promise.resolve(this.eventEmitter.emit(item.name, this.getParams(item, context))).then((res) => {
+        const task = Promise.resolve(this.eventEmitter.emit(item.name)).then((res) => {
+          this.lastedName = item.name
           this.result[item.name] = res
           return res
         })
@@ -249,7 +242,7 @@ class Scheduler {
     // 添加节点时，如果已经时ready状态，则直接执行
     const node = findTrees(this.nodes, (item) => item.name === name)
     if (node) {
-      this.exec([node], {})
+      this.exec([node])
     }
 
     return () => {
@@ -279,7 +272,7 @@ class Scheduler {
     // 更新节点时，如果已经时ready状态，则直接执行
     const node = findTrees(this.nodes, (item) => item.name === name)
     if (node) {
-      this.exec([node], {})
+      this.exec([node])
     }
 
     return isRemoved
@@ -320,27 +313,23 @@ class Scheduler {
    * 发布更新
    *
    * @param {String?} name 组件名称
-   * @param {Object} context 执行的上下文参数
    *
    * @returns {Promise<Void>}
    */
-  async publish(name, context) {
-    const itemName = isString(name) ? name : undefined
-    const data = isString(name) ? context : name
-
-    if (!itemName) {
+  async publish(name) {
+    if (!name) {
       this.result = {}
       this.isReady = true
-      await this.exec(this.nodes, data)
+      await this.exec(this.nodes)
       return
     }
 
-    const node = findTrees(this.nodes, (item) => item.name === itemName)
+    const node = findTrees(this.nodes, (item) => item.name === name)
     if (!node) {
       return
     }
 
-    await this.exec(node.children, data)
+    await this.exec(node.children)
   }
 
   /**

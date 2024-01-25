@@ -1,11 +1,12 @@
 import React, { useRef, forwardRef, useImperativeHandle } from 'react'
 import propTypes from 'prop-types'
 import { useMount, useUnmount } from 'remote:glide_components/hooks'
+import { classNames } from 'remote:glide_components/utils'
 import * as monaco from 'monaco-editor/esm/vs/editor/editor.api'
 
 import styles from './Editor.module.less'
 
-const Editor = forwardRef(function ({ language, defaultValue, onChange }, ref) {
+const Editor = forwardRef(function ({ style, className, language, value, onChange }, ref) {
   const ready = useRef(false)
   const el = useRef(null)
   const editor = useRef(null)
@@ -20,7 +21,7 @@ const Editor = forwardRef(function ({ language, defaultValue, onChange }, ref) {
 
   useMount(() => {
     editor.current = monaco.editor.create(el.current, {
-      value: defaultValue,
+      value,
       language,
       theme: 'vs-dark',
       formatOnType: true,
@@ -48,7 +49,7 @@ const Editor = forwardRef(function ({ language, defaultValue, onChange }, ref) {
     editor.current.dispose()
   })
 
-  return <div ref={el} className={styles.editor} />
+  return <div style={style} ref={el} className={classNames(styles.editor, { [className]: className })} />
 })
 
 Editor.defaultProps = {
@@ -58,14 +59,12 @@ Editor.defaultProps = {
 
 Editor.propTypes = {
   /**
-   * 语言
+   * 指定样式
    */
+  style: propTypes.object,
+  className: propTypes.string,
   language: propTypes.oneOf(['javascript', 'json']),
-
-  /**
-   * 默认值
-   */
-  defaultValue: propTypes.string,
+  value: propTypes.string,
 }
 
 export default Editor

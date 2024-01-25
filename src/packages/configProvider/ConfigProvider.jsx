@@ -1,7 +1,7 @@
 import React from 'react'
 import { ConfigProvider as AConfigProvider, theme as ATheme } from 'antd'
 import propTypes from 'prop-types'
-import merge from 'lodash.merge'
+import { merge } from 'remote:glide_components/utils'
 
 function ConfigProvider({ theme, size, children, ...props }) {
   const themeConfig = merge(

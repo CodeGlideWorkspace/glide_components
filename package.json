@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "@ant-design/icons": "^5.2.6",
+    "@babel/standalone": "^7.23.8",
     "@visactor/vchart": "^1.6.0",
     "@visactor/vtable": "^0.13.3",
     "antd": "^5.11.0",

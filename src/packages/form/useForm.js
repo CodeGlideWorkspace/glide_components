@@ -54,8 +54,8 @@ export class FormManage {
   /**
    * 获取表单值
    */
-  getValues() {
-    return this.form.getFieldsValue()
+  getValues(names) {
+    return this.form.getFieldsValue(names)
   }
 
   /**
