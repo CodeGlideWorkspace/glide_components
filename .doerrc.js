@@ -33,6 +33,7 @@ module.exports = {
     './Editor': './src/packages/editor/index.js',
     './Modal': './src/packages/modal/index.js',
     './Flow': './src/packages/flow/index.js',
+    './Tree': './src/packages/tree/index.js',
   },
   shared: {},
 

@@ -289,11 +289,11 @@ export function mapTree(tree, mapper, option = {}) {
 
   // 遍历单个插槽节点
   if (isArray(tree[slotKey])) {
-    data[slotKey] = mapTrees(tree[slotKey])
+    data[slotKey] = mapTrees(tree[slotKey], mapper, option)
   }
 
   // 遍历子节点
-  data[childrenKey] = mapTrees(tree[childrenKey])
+  data[childrenKey] = mapTrees(tree[childrenKey], mapper, option)
 
   if (isFunction(option?.after)) {
     option.after(tree)

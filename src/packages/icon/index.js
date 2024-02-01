@@ -20,6 +20,7 @@ import {
   FunctionOutlined,
   UngroupOutlined,
   SolutionOutlined,
+  MergeCellsOutlined,
 } from '@ant-design/icons'
 
 export {
@@ -44,4 +45,5 @@ export {
   UngroupOutlined,
   FunctionOutlined,
   SolutionOutlined,
+  MergeCellsOutlined,
 }

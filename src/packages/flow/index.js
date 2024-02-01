@@ -1,4 +1,5 @@
 import {
+  useReactFlow,
   ReactFlowProvider,
   Controls,
   useNodesState,
@@ -17,6 +18,7 @@ import ReactFlow from './ReactFlow'
 import 'reactflow/dist/style.css'
 
 export {
+  useReactFlow,
   ReactFlow,
   ReactFlowProvider,
   Controls,
