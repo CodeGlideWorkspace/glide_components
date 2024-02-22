@@ -66,7 +66,7 @@ export function createAction(set, get) {
  */
 export function createStore(store, name) {
   const showName = store.name || name
-  return create(immer(devtools(store, { showName, enabled: IS_ENABLED_DEVTOOLS })))
+  return create(immer(devtools(store, { name: showName, enabled: IS_ENABLED_DEVTOOLS })))
 }
 
 /**

@@ -21,6 +21,8 @@ Button.propTypes = {
    */
   type: propTypes.oneOf(['primary', 'dashed', 'link', 'text', 'default']),
 
+  block: propTypes.bool,
+
   /**
    * 加载状态
    */

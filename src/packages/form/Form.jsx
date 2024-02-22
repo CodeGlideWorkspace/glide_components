@@ -11,7 +11,7 @@ function Form(props) {
 
 Form.defaultProps = {
   layout: 'vertical',
-  labelAlign: 'left',
+  labelAlign: 'right',
   onChange() {},
   onFieldsChange() {},
   onSubmit() {},

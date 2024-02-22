@@ -1,6 +1,7 @@
 import React from 'react'
 import propTypes from 'prop-types'
 import { Tree as ATree, Input as AInput } from 'antd'
+import { classNames } from 'remote:glide_components/utils'
 
 import useTree from './useTree'
 
@@ -10,7 +11,7 @@ function Tree(props) {
   const { props: aProps, ref: aRef, searchProps } = useTree(props)
 
   return (
-    <div className={styles.tree}>
+    <div className={classNames(styles.tree, { [props.className]: props.className })}>
       {props.searchable && <AInput.Search className={styles.search} {...searchProps} />}
       <ATree ref={aRef} {...aProps} />
     </div>

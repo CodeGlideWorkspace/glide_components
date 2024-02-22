@@ -3,7 +3,6 @@ import { isArray, filterTrees } from 'remote:glide_components/utils'
 
 function useTree({
   style,
-  className,
   allowDrop,
   block,
   autoExpand,
@@ -84,7 +83,6 @@ function useTree({
 
   return {
     props: {
-      className,
       rootStyle: style,
       allowDrop,
       autoExpandParent: autoExpand,

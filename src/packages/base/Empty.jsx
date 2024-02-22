@@ -5,9 +5,11 @@ import { classNames } from 'remote:glide_components/utils'
 
 import styles from './Empty.module.less'
 
-function Empty({ className, style, image, description }) {
+function Empty({ className, style, image, description, children }) {
   return (
-    <AEmpty className={classNames(styles.empty, { className })} style={style} image={image} description={description} />
+    <AEmpty className={classNames(styles.empty, { className })} style={style} image={image} description={description}>
+      {children}
+    </AEmpty>
   )
 }
 

@@ -9,7 +9,7 @@ import Trigger from './Trigger'
 import styles from './Sider.module.less'
 
 function Sider(props) {
-  const { props: aProps, triggerProps, collapsed, direction } = useSider(props)
+  const { props: aProps, triggerProps, direction } = useSider(props)
 
   return (
     <ALayout.Sider {...aProps}>
@@ -18,7 +18,6 @@ function Sider(props) {
           className={classNames(styles.trigger, {
             [styles.left]: direction === 'left',
             [styles.right]: direction === 'right',
-            [styles.collapsed]: collapsed,
           })}
           {...triggerProps}
         />

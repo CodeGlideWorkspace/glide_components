@@ -11,6 +11,7 @@ import {
   Position,
   applyNodeChanges,
   applyEdgeChanges,
+  useUpdateNodeInternals,
 } from 'reactflow'
 
 import ReactFlow from './ReactFlow'
@@ -31,4 +32,5 @@ export {
   Position,
   applyNodeChanges,
   applyEdgeChanges,
+  useUpdateNodeInternals,
 }

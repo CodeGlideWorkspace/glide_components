@@ -3,8 +3,8 @@ import propTypes from 'prop-types'
 
 import { useRemote, parsePath } from './useRemote'
 
-const Remote = forwardRef(function ({ $$path, children, ...props }, ref) {
-  const { Component, status } = useRemote(parsePath($$path))
+const Remote = forwardRef(function ({ $$path, $$forwardRef, children, ...props }, ref) {
+  const { Component, status } = useRemote(parsePath($$path), $$forwardRef)
 
   function renderComponent() {
     // TODO 优化显示效果
@@ -40,6 +40,10 @@ Remote.propTypes = {
     path: propTypes.string.isRequired,
     exportName: propTypes.string,
   }),
+  /**
+   * 是否自动包裹forwardRef
+   */
+  $$forwardRef: propTypes.bool,
 }
 
 export default Remote

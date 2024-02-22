@@ -1,4 +1,4 @@
-import { lazy, useState, useEffect } from 'react'
+import { forwardRef, lazy, useState, useEffect } from 'react'
 import { isObject } from 'remote:glide_components/utils'
 
 import loadRemote from './loadRemote'
@@ -14,7 +14,7 @@ export function parsePath(remoteDefinition) {
   }
 }
 
-export function useRemote({ path, exportName }) {
+export function useRemote({ path, exportName }, isForwardRef) {
   const [Component, setComponent] = useState(null)
   const [status, setStatus] = useState('pending')
 
@@ -25,8 +25,13 @@ export function useRemote({ path, exportName }) {
     }
     try {
       const Com = lazy(() =>
-        loadRemote(path).then((m) => {
-          return { default: m[exportName] }
+        loadRemote(path).then((module) => {
+          const exportModule = module[exportName]
+          if (exportModule.$$typeof) {
+            return { default: exportModule }
+          }
+
+          return { default: isForwardRef ? forwardRef(exportModule) : exportModule }
         }),
       )
       setComponent(Com)

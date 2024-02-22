@@ -15,7 +15,7 @@ function toUppercaseWords(str) {
 // 替换冒号参数
 function replaceColonParams(path, params = {}) {
   let url = path
-  const body = {}
+  let body = {}
   const match = url.match(/\/:(\w+)/g)
 
   if (isArray(match)) {
@@ -28,6 +28,8 @@ function replaceColonParams(path, params = {}) {
       }
       body[key] = params[key]
     })
+  } else {
+    body = params
   }
 
   return { url, params: body }
