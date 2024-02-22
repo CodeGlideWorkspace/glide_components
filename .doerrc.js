@@ -34,6 +34,7 @@ module.exports = {
     './Modal': './src/packages/modal/index.js',
     './Flow': './src/packages/flow/index.js',
     './Tree': './src/packages/tree/index.js',
+    './Dropdown': './src/packages/dropdown/index.js',
   },
   shared: {},
 

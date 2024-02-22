@@ -56,7 +56,9 @@ function Droppable({ children, onDrop, state = {}, item, depth, style, canDrop, 
       onDrop(source, target, state, monitor)
     },
     collect: (monitor) => {
-      const isOver = monitor.isOver()
+      const isOver = monitor.isOver({
+        shallow: true,
+      })
       const dropPosition = () => {
         if (!isOver) {
           return ''
