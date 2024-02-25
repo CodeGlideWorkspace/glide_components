@@ -13,6 +13,7 @@ const Select = forwardRef(function (props, ref) {
 
 Select.defaultProps = {
   placeholder: '请选择',
+  virtual: false,
 }
 
 Select.propTypes = {

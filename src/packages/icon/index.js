@@ -24,6 +24,8 @@ import {
   MacCommandOutlined,
   ShareAltOutlined,
   EditOutlined,
+  UndoOutlined,
+  RedoOutlined,
 } from '@ant-design/icons'
 
 export {
@@ -52,4 +54,6 @@ export {
   MacCommandOutlined,
   ShareAltOutlined,
   EditOutlined,
+  UndoOutlined,
+  RedoOutlined,
 }
