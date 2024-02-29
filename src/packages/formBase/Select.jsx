@@ -109,6 +109,11 @@ Select.propTypes = {
   maxTagTextLength: propTypes.number,
 
   /**
+   * 下拉菜单与选择器同宽
+   */
+  popupMatchSelectWidth: propTypes.bool,
+
+  /**
    * 下拉框选项
    */
   data: propTypes.arrayOf(

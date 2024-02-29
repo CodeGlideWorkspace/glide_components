@@ -69,6 +69,7 @@ export default function useDrawer({
       zIndex,
       classNames,
       styles,
+      rootStyle: getContainer ? { position: 'absolute' } : undefined,
       closeIcon: closeable,
       destroyOnClose: destroyInactive,
       footer: renderFooter(),

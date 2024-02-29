@@ -361,32 +361,34 @@ export function filterTree(tree, filter, option = {}) {
     option.before(tree)
   }
 
-  let isMatched = filter(tree)
+  const nextTree = { ...tree }
+
+  let isMatched = filter(nextTree)
 
   const { childrenKey = 'children', slotKey = 'slots' } = option
   // 遍历多个插槽节点
-  if (isObject(tree[slotKey])) {
-    Object.keys(tree[slotKey]).forEach((slotName) => {
-      tree[slotKey][slotName] = filterTrees(tree[slotKey][slotName], filter, option)
-      isMatched = isMatched || !!tree[slotKey][slotName]?.length
+  if (isObject(nextTree[slotKey])) {
+    Object.keys(nextTree[slotKey]).forEach((slotName) => {
+      nextTree[slotKey][slotName] = filterTrees(nextTree[slotKey][slotName], filter, option)
+      isMatched = isMatched || !!nextTree[slotKey][slotName]?.length
     })
   }
 
   // 遍历单个插槽节点
-  if (isArray(tree[slotKey])) {
-    tree[slotKey] = filterTrees(tree[slotKey], filter, option)
-    isMatched = isMatched || !!tree[slotKey]?.length
+  if (isArray(nextTree[slotKey])) {
+    nextTree[slotKey] = filterTrees(nextTree[slotKey], filter, option)
+    isMatched = isMatched || !!nextTree[slotKey]?.length
   }
 
   // 遍历子节点
-  tree[childrenKey] = filterTrees(tree[childrenKey], filter, option)
-  isMatched = isMatched || !!tree[slotKey]?.length
+  nextTree[childrenKey] = filterTrees(nextTree[childrenKey], filter, option)
+  isMatched = isMatched || !!nextTree[slotKey]?.length
 
   if (isFunction(option?.after)) {
-    option.after(tree)
+    option.after(nextTree)
   }
 
-  return isMatched ? tree : undefined
+  return isMatched ? nextTree : undefined
 }
 
 /**
