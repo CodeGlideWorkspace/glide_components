@@ -1,2 +1,2 @@
-import { createAction, createStore, withSelector } from './create'
-export { createStore, createAction, withSelector }
+import { createAction, createStore, withSelector, getHistoryStore, createHistoryStore } from './create'
+export { createStore, createAction, withSelector, getHistoryStore, createHistoryStore }

@@ -1,6 +1,7 @@
-import { create } from 'zustand'
+import { create, useStore } from 'zustand'
 import { devtools } from 'zustand/middleware'
 import { immer } from 'zustand/middleware/immer'
+import { temporal } from 'zundo'
 import { isUndefined } from 'remote:glide_components/utils'
 
 // 是否开启redux-devtools调试模式
@@ -67,6 +68,34 @@ export function createAction(set, get) {
 export function createStore(store, name) {
   const showName = store.name || name
   return create(immer(devtools(store, { name: showName, enabled: IS_ENABLED_DEVTOOLS })))
+}
+
+/**
+ * 生成可撤销/重做的存储对象store
+ *
+ * @param {Function} store 存储对象创建函数
+ * @param {String?} name 可选，，存储对象名称，当store为匿名函数时，需要传入存储对象名称
+ * @param {Object} option 历史插件的选项 https://github.com/charkour/zundo
+ *
+ * @returns {Hook}
+ */
+export function createHistoryStore(store, name, option) {
+  const showName = store.name || name
+  return create(devtools(temporal(immer(store), option), { name: showName, enabled: IS_ENABLED_DEVTOOLS }))
+}
+
+/**
+ * 获取撤销/重做的管理hook
+ *
+ * @param {Object} store zustand存储对象函数
+ * @param {Function} selector 状态选择器
+ * @param {Function} equality 状态变更对比函数
+ *
+ * @returns {Hook}
+ */
+export function getHistoryStore(store, selector, equality) {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  return useStore(store.temporal, selector, equality)
 }
 
 /**
